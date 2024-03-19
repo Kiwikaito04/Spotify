@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Profile"
+            android:title="Xem hồ sơ"
+            android:icon="@drawable/profile"/>
+        <item
+            android:id="@+id/nav_News"
+            android:title="Thông tin mới"
+            android:icon="@drawable/ic_lightning"/>
+        <item
+            android:id="@+id/nav_history"
+            android:title="Nội dung đã nghe"
+            android:icon="@drawable/ic_time"/>
+        <item
+            android:id="@+id/nav_setting"
+            android:title="Cài đặt và quyền riêng tư"
+            android:icon="@drawable/ic_settings"/>
+        <item
+            android:id="@+id/nav_login"
+            android:title="Đăng nhập" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Đăng xuất" />
+    </group>
+
+</menu>

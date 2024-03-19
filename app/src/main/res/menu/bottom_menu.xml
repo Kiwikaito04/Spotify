@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Trang chủ"
+        android:id="@+id/botNav_Home"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:title="Tìm kiếm"
+        android:id="@+id/botNav_Search"
+        android:icon="@drawable/ic_search"/>
+    <item
+        android:title="Thư viện"
+        android:id="@+id/botNav_Library"
+        android:icon="@drawable/ic_library"/>
+    <item
+        android:title="Premium"
+        android:id="@+id/botNav_Premium"
+        android:icon="@drawable/spotify"/>
+
+</menu>
