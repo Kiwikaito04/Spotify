@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        addControls();
+        LoadFunction();
         addBottomNavEvents();
         Navigation(savedInstanceState); // Truyền tham số savedInstanceState vào phương thức Navigation
     }
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fmTran.commit();
     }
 
-    private void addControls() {
+    private void LoadFunction() {
         bottomNav = findViewById(R.id.bottomNav);
         actionBar = getSupportActionBar();
         loadFragment(new HomeFragment()); //Chạy fragment mặc định là Home
