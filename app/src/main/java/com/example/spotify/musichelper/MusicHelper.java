@@ -8,11 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.io.Console;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MusicHelper extends SQLiteOpenHelper
 {
@@ -21,11 +24,27 @@ public class MusicHelper extends SQLiteOpenHelper
     public static final String COLUMN_ID = "ID_Music";
     public static final String COLUMN_MUSICNAME = "MusicName";
     public static final String COLUMN_FILENAME = "FileName";
-    public static ArrayList<MusicAdapter> ListSongs;
+    public static ArrayList<MusicAdapter> ListSongs = new ArrayList<>();
     public MusicHelper(@Nullable Context context)
     {
         super(context, DB_NAME, null, 1);
         LoadListSongs();
+        if(ListSongs.isEmpty())
+        {
+            CreateNewListSongs();
+            LoadListSongs();
+        }
+    }
+
+    private void CreateNewListSongs() {
+        Integer[] ID = {1,2};
+        String[] TenBaiHat = {"ball in the jals","nigg"};
+        String[] TenFile = {"music","music2"};
+        for(int i=0 ; i<2 ; i++) {
+            MusicAdapter song = new MusicAdapter(ID[i], TenBaiHat[i], TenFile[i]);
+            if (!InsertMusic(song))
+                Log.w("Insert song","Some thing went wrong");
+        }
     }
 
     private void LoadListSongs() {
@@ -67,5 +86,8 @@ public class MusicHelper extends SQLiteOpenHelper
         //Nếu không thành công, trả về false
         return result != -1;
     }
-
+    public static ArrayList<MusicAdapter> getListSongs()
+    {
+        return ListSongs;
+    }
 }

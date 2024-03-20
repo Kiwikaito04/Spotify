@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.spotify.musichelper.MusicAdapter;
 import com.example.spotify.musichelper.MusicHelper;
 import com.example.spotify.musichelper.Song;
 
@@ -29,7 +30,7 @@ public class MusicActivity extends AppCompatActivity {
     ImageButton btnPlay, btnPrevious, btnLast, btnPause;
     ImageView disc;
     SeekBar seekBar;
-    ArrayList<Song> ListSongs;
+    ArrayList<MusicAdapter> ListSongs;
     int position = 0;
     MediaPlayer mediaPlayer;
     Animation animation;
@@ -40,9 +41,10 @@ public class MusicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_music);
+
         LoadFunction();
         LoadListSongs();
-        khoitaoMediaPlayer();
+        CreateMediaPlayer();
         LoadBtnAction();
         animation = AnimationUtils.loadAnimation(this,R.anim.disc_rotation);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -67,15 +69,15 @@ public class MusicActivity extends AppCompatActivity {
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mediaPlayer.isPlaying()){
+                if(mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
                     btnPlay.setImageResource(R.drawable.icmusic_play);
                 }
-                else {
+                else{
                     mediaPlayer.start();
                     btnPlay.setImageResource(R.drawable.icmusic_pause);
-
                 }
+
                 disc.startAnimation(animation);
                 SetTotalTime();
                 UpdateTimeSong();
@@ -87,8 +89,9 @@ public class MusicActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mediaPlayer.stop();
                 mediaPlayer.release();
-                khoitaoMediaPlayer();
+                CreateMediaPlayer();
                 disc.clearAnimation();
+                btnPlay.setImageResource(R.drawable.icmusic_play);
             }
         });
         btnLast.setOnClickListener(new View.OnClickListener() {
@@ -104,13 +107,11 @@ public class MusicActivity extends AppCompatActivity {
                 if(mediaPlayer.isPlaying()){
                     mediaPlayer.stop();
                 }
-                khoitaoMediaPlayer();
+                CreateMediaPlayer();
                 mediaPlayer.start();
                 disc.startAnimation(animation);
                 SetTotalTime();
                 UpdateTimeSong();
-
-
             }
         });
         btnPrevious.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +127,7 @@ public class MusicActivity extends AppCompatActivity {
                 if(mediaPlayer.isPlaying()){
                     mediaPlayer.stop();
                 }
-                khoitaoMediaPlayer();
+                CreateMediaPlayer();
                 mediaPlayer.start();
                 disc.startAnimation(animation);
                 SetTotalTime();
@@ -138,15 +139,26 @@ public class MusicActivity extends AppCompatActivity {
         });
     }
 
-    private void khoitaoMediaPlayer() {
-        mediaPlayer=MediaPlayer.create(MusicActivity.this, ListSongs.get(position).getFile());
-        txtTenBaiHat.setText(ListSongs.get(position).getName());
+    private void CreateMediaPlayer() {
+        // Lấy tên tệp từ danh sách ListSongs ở vị trí được chỉ định
+        String fileName = ListSongs.get(position).getFileName();
+        // Lấy ID của tệp dựa trên tên
+        int fileID = getResources().getIdentifier(fileName, "raw", getPackageName());
+        // Kiểm tra xem ID có hợp lệ không
+        if (fileID != 0) {
+            mediaPlayer = MediaPlayer.create(MusicActivity.this, fileID); // Sử dụng ID để tạo MediaPlayer
+        } else {
+            // Xử lý trường hợp không tìm thấy tệp
+        }
+
+        txtTenBaiHat.setText(ListSongs.get(position).getMusicName());
     }
 
     private void LoadListSongs() {
-        ListSongs = new ArrayList<>();
-        ListSongs.add(new Song("ball in the jals",R.raw.music));
-        ListSongs.add(new Song("nigg",R.raw.music2));
+        ListSongs = MusicHelper.getListSongs();
+
+//        ListSongs.add(new Song("ball in the jals",R.raw.music));
+//        ListSongs.add(new Song("nigg",R.raw.music2));
     }
 
     private void LoadFunction() {
@@ -189,7 +201,7 @@ public class MusicActivity extends AppCompatActivity {
                         if(mediaPlayer.isPlaying()){
                             mediaPlayer.stop();
                         }
-                        khoitaoMediaPlayer();
+                        CreateMediaPlayer();
                         mediaPlayer.start();
                         disc.startAnimation(animation);
                         SetTotalTime();
