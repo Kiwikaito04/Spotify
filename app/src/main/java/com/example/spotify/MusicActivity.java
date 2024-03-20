@@ -1,0 +1,203 @@
+package com.example.spotify;
+
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.spotify.musichelper.Song;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+public class MusicActivity extends AppCompatActivity {
+
+    //region Variable
+    Button btnMP3,btnMP4;
+    TextView txtTenBaiHat,txtSongToTal,txtTimeSong;
+    ImageButton btnPlay, btnPrevious, btnLast, btnPause;
+    ImageView disc;
+    SeekBar seekBar;
+    ArrayList<Song> ListSongs;
+    int position = 0;
+    MediaPlayer mediaPlayer;
+    Animation animation;
+    //endregion
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_music);
+        LoadFunction();
+        LoadListSongs();
+        khoitaoMediaPlayer();
+        addEvents();
+        animation = AnimationUtils.loadAnimation(this,R.anim.disc_rotation);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mediaPlayer.seekTo(seekBar.getProgress());
+
+            }
+        });
+    }
+    private void addEvents() {
+        btnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.pause();
+                    btnPlay.setImageResource(R.drawable.play);
+                }
+                else {
+                    mediaPlayer.start();
+                    btnPlay.setImageResource(R.drawable.pause);
+
+                }
+                disc.startAnimation(animation);
+                SetTotalTime();
+                UpdateTimeSong();
+
+            }
+        });
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.stop();
+                mediaPlayer.release();
+                khoitaoMediaPlayer();
+                disc.clearAnimation();
+            }
+        });
+        btnLast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                position++;
+
+                //song=4 => 0 1 2 3 0
+                if(position> ListSongs.size()-1){
+                    position=0;
+                }
+                //neu phat nhac thi dung
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.stop();
+                }
+                khoitaoMediaPlayer();
+                mediaPlayer.start();
+                disc.startAnimation(animation);
+                SetTotalTime();
+                UpdateTimeSong();
+
+
+            }
+        });
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                position--;
+
+                //song=4 => 0 1 2 3 0
+                if(position<0){
+                    position = ListSongs.size()-1;
+                }
+                //neu phat nhac thi dung
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.stop();
+                }
+                khoitaoMediaPlayer();
+                mediaPlayer.start();
+                disc.startAnimation(animation);
+                SetTotalTime();
+                UpdateTimeSong();
+
+
+
+            }
+        });
+    }
+
+    private void khoitaoMediaPlayer() {
+        mediaPlayer=MediaPlayer.create(MusicActivity.this, ListSongs.get(position).getFile());
+        txtTenBaiHat.setText(ListSongs.get(position).getName());
+    }
+
+
+
+
+    private void LoadListSongs() {
+        ListSongs = new ArrayList<>();
+        ListSongs.add(new Song("ball in the jals",R.raw.music));
+        ListSongs.add(new Song("nigg",R.raw.music2));
+    }
+
+    private void LoadFunction() {
+        btnPlay = findViewById(R.id.play);
+        btnPrevious = findViewById(R.id.previous);
+        btnLast = findViewById(R.id.last);
+        txtTenBaiHat = findViewById(R.id.txtTenBaiHat);
+        txtSongToTal = findViewById(R.id.txtSongToTal);
+        txtTimeSong = findViewById(R.id.txtTimeSong);
+        btnPause = findViewById(R.id.pause);
+        seekBar = findViewById(R.id.btnseekBar);
+        disc = findViewById(R.id.disc);
+    }
+    private  void SetTotalTime(){
+        //getduration() tra tong tgian bai hat= m/s=> dinh dang phut/giay =simpledataformat
+        SimpleDateFormat fm=new SimpleDateFormat("mm:ss");
+        txtSongToTal.setText(fm.format(mediaPlayer.getDuration())+"");
+        seekBar.setMax(mediaPlayer.getDuration());
+    }
+    private  void UpdateTimeSong(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // lay thoi gian bai hat dang phat getCurrentPosition()
+                SimpleDateFormat fm = new SimpleDateFormat("mm:ss");
+                txtTimeSong.setText(fm.format(mediaPlayer.getCurrentPosition())+"");
+                seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        position++;
+
+                        //song=4 => 0 1 2 3 0
+                        if(position> ListSongs.size()-1){
+                            position=0;
+                        }
+                        //neu phat nhac thi dung
+                        if(mediaPlayer.isPlaying()){
+                            mediaPlayer.stop();
+                        }
+                        khoitaoMediaPlayer();
+                        mediaPlayer.start();
+                        disc.startAnimation(animation);
+                        SetTotalTime();
+                        UpdateTimeSong();
+                    }
+                });
+                handler.postDelayed(this,500);
+            }
+        }, 500);
+    }
+}

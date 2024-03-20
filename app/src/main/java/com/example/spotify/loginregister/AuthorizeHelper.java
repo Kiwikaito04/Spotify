@@ -25,14 +25,16 @@ public class AuthorizeHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL("create Table "+TABLE_NAME+"(" +COLUMN_EMAIL+" Text primary key, "
-                +COLUMN_USERNAME+" Text, " +COLUMN_PASSWORD+" Text)");
+        db.execSQL("create Table " + TABLE_NAME + "("
+                + COLUMN_EMAIL + " Text primary key, "
+                + COLUMN_USERNAME + " Text, "
+                + COLUMN_PASSWORD + " Text)");
     }
     //Xóa bảng tblUser nếu đã tồn tại
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        db.execSQL("drop Table if exists "+TABLE_NAME);
+        db.execSQL("drop Table if exists " + TABLE_NAME);
     }
     //Thêm dòng giá trị vào bảng
     public Boolean InsertData(String email, String username, String password)
@@ -46,16 +48,16 @@ public class AuthorizeHelper extends SQLiteOpenHelper
         user.put(COLUMN_PASSWORD, password);
         //Thêm user vào bảng
         long result = myDB.insert(TABLE_NAME, null, user);
+        myDB.close();
         //Nếu không thành công, trả về false
         return result != -1;
     }
-    public Boolean CheckEmailOrUserName(String email, String username)
+    public Cursor isAvailableEmailOrUserName(String email, String username)
     {
         SQLiteDatabase myDB = this.getWritableDatabase();
-        Cursor isAvailableEmail = myDB.rawQuery("Select * from tblUsers where email = ?", new String[]{email}),
-            isAvailableUsername = myDB.rawQuery("Select * from tblUsers where username = ?", new String[]{username});
-        boolean test = isAvailableEmail.getCount() > 0 || isAvailableUsername.getCount() > 0;
-        return isAvailableEmail.getCount() > 0 || isAvailableUsername.getCount() > 0;
+        Cursor isAvailable = myDB.rawQuery("Select * from tblUsers where (email = ? or username = ?)", new String[]{email, username});
+        myDB.close();
+        return isAvailable;
     }
     public Boolean CheckEmail(String email)
     {
@@ -66,7 +68,8 @@ public class AuthorizeHelper extends SQLiteOpenHelper
     public Boolean CheckAccount(String EmailOrUsername, String password)
     {
         SQLiteDatabase myDB = this.getReadableDatabase();
-        Cursor isAvailableAccount = myDB.rawQuery("Select * from tblUsers where (email = ? or username = ?) and password = ?", new String[]{EmailOrUsername,EmailOrUsername,password});
+        Cursor Account = isAvailableEmailOrUserName(EmailOrUsername, EmailOrUsername);
+        Cursor isAvailableAccount = myDB.rawQuery("Select * from tblUsers where (? = ?)", new String[]{ Account.getString(3), password});
         return isAvailableAccount.getCount() > 0;
     }
 }

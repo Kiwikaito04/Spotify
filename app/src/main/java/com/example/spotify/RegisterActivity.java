@@ -2,6 +2,7 @@ package com.example.spotify;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Interpolator;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import java.io.IOException;
 public class RegisterActivity extends AppCompatActivity {
     AuthorizeHelper authorize;
     ImageView imgAvatar;
+    Bitmap imgAvtBit;
     RelativeLayout relativeLayout;
     EditText Username, Email, Password, ConfirmPass;
     Button btnSignUp, btnLogin;
@@ -119,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
             ConfirmPass.setError("Password not match.");
             return false;
         }
-        if (authorize.CheckEmailOrUserName(email, username)) {
+        if (authorize.isAvailableEmailOrUserName(email, username).getCount() > 0) {
             Toast.makeText(RegisterActivity.this, "User already exists", Toast.LENGTH_LONG).show();
             return false;
         }
