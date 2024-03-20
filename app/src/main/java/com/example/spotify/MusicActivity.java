@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.spotify.musichelper.MusicHelper;
 import com.example.spotify.musichelper.Song;
 
 import java.text.SimpleDateFormat;
@@ -32,6 +33,7 @@ public class MusicActivity extends AppCompatActivity {
     int position = 0;
     MediaPlayer mediaPlayer;
     Animation animation;
+    MusicHelper musicHelper;
     //endregion
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class MusicActivity extends AppCompatActivity {
         LoadFunction();
         LoadListSongs();
         khoitaoMediaPlayer();
-        addEvents();
+        LoadBtnAction();
         animation = AnimationUtils.loadAnimation(this,R.anim.disc_rotation);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -61,17 +63,17 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
     }
-    private void addEvents() {
+    private void LoadBtnAction() {
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mediaPlayer.isPlaying()){
                     mediaPlayer.pause();
-                    btnPlay.setImageResource(R.drawable.play);
+                    btnPlay.setImageResource(R.drawable.icmusic_play);
                 }
                 else {
                     mediaPlayer.start();
-                    btnPlay.setImageResource(R.drawable.pause);
+                    btnPlay.setImageResource(R.drawable.icmusic_pause);
 
                 }
                 disc.startAnimation(animation);
@@ -141,9 +143,6 @@ public class MusicActivity extends AppCompatActivity {
         txtTenBaiHat.setText(ListSongs.get(position).getName());
     }
 
-
-
-
     private void LoadListSongs() {
         ListSongs = new ArrayList<>();
         ListSongs.add(new Song("ball in the jals",R.raw.music));
@@ -151,15 +150,16 @@ public class MusicActivity extends AppCompatActivity {
     }
 
     private void LoadFunction() {
-        btnPlay = findViewById(R.id.play);
-        btnPrevious = findViewById(R.id.previous);
-        btnLast = findViewById(R.id.last);
-        txtTenBaiHat = findViewById(R.id.txtTenBaiHat);
-        txtSongToTal = findViewById(R.id.txtSongToTal);
-        txtTimeSong = findViewById(R.id.txtTimeSong);
-        btnPause = findViewById(R.id.pause);
-        seekBar = findViewById(R.id.btnseekBar);
-        disc = findViewById(R.id.disc);
+        musicHelper = new MusicHelper(this);
+        btnPlay = findViewById(R.id.Music_btnPlay);
+        btnPrevious = findViewById(R.id.Music_btnPrevious);
+        btnLast = findViewById(R.id.Music_btnLast);
+        txtTenBaiHat = findViewById(R.id.Music_TenBaiHat);
+        txtSongToTal = findViewById(R.id.Music_SongToTal);
+        txtTimeSong = findViewById(R.id.Music_TimeSong);
+        btnPause = findViewById(R.id.Music_btnPause);
+        seekBar = findViewById(R.id.Music_btnSeekBar);
+        disc = findViewById(R.id.Music_disc);
     }
     private  void SetTotalTime(){
         //getduration() tra tong tgian bai hat= m/s=> dinh dang phut/giay =simpledataformat
@@ -182,7 +182,7 @@ public class MusicActivity extends AppCompatActivity {
                         position++;
 
                         //song=4 => 0 1 2 3 0
-                        if(position> ListSongs.size()-1){
+                        if(position > ListSongs.size()-1){
                             position=0;
                         }
                         //neu phat nhac thi dung

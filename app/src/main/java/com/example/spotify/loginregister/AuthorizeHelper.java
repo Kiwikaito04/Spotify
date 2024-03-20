@@ -62,8 +62,9 @@ public class AuthorizeHelper extends SQLiteOpenHelper
     public Boolean CheckEmail(String email)
     {
         SQLiteDatabase myDB = this.getWritableDatabase();
-        Cursor isAvailableEmail = myDB.rawQuery("Select * from tblUsers where email = ?", new String[]{email});
-        return isAvailableEmail.getCount() > 0 ;
+        Cursor isAvailableEmail = myDB.rawQuery("Select * from tblUsers where (email = ?)", new String[]{email});
+        myDB.close();
+        return isAvailableEmail.getCount() > 0;
     }
     public Boolean CheckAccount(String EmailOrUsername, String password)
     {

@@ -7,7 +7,7 @@
     tools:context=".MainActivity" >
 
     <ImageButton
-        android:id="@+id/previous"
+        android:id="@+id/Music_btnPrevious"
         android:layout_width="52dp"
         android:layout_height="54dp"
         android:layout_marginTop="168dp"
@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/previous" />
 
     <ImageButton
-        android:id="@+id/last"
+        android:id="@+id/Music_btnLast"
         android:layout_width="52dp"
         android:layout_height="54dp"
         android:layout_marginTop="168dp"
@@ -31,7 +31,7 @@
         app:srcCompat="@drawable/last" />
 
     <ImageButton
-        android:id="@+id/play"
+        android:id="@+id/Music_btnPlay"
         android:layout_width="52dp"
         android:layout_height="51dp"
         android:layout_marginTop="168dp"
@@ -40,10 +40,10 @@
         app:layout_constraintHorizontal_bias="0.423"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/play" />
+        app:srcCompat="@drawable/icmusic_play" />
 
     <ImageButton
-        android:id="@+id/pause"
+        android:id="@+id/Music_btnPause"
         android:layout_width="52dp"
         android:layout_height="51dp"
         android:layout_marginTop="168dp"
@@ -55,7 +55,7 @@
         app:srcCompat="@drawable/stop" />
 
     <ImageView
-        android:id="@+id/disc"
+        android:id="@+id/Music_disc"
         android:layout_width="227dp"
         android:layout_height="176dp"
         android:layout_marginTop="244dp"
@@ -65,7 +65,7 @@
         app:srcCompat="@drawable/disc" />
 
     <TextView
-        android:id="@+id/txtTenBaiHat"
+        android:id="@+id/Music_TenBaiHat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
@@ -78,7 +78,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <SeekBar
-        android:id="@+id/btnseekBar"
+        android:id="@+id/Music_btnSeekBar"
         android:layout_width="364dp"
         android:layout_height="0dp"
         android:layout_marginTop="540dp"
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtSongToTal"
+        android:id="@+id/Music_SongToTal"
         android:layout_width="74dp"
         android:layout_height="79dp"
         android:layout_marginTop="436dp"
@@ -101,7 +101,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtTimeSong"
+        android:id="@+id/Music_TimeSong"
         android:layout_width="74dp"
         android:layout_height="79dp"
         android:layout_marginTop="432dp"
