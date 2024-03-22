@@ -25,16 +25,18 @@ public class AuthorizeHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL("create Table " + TABLE_NAME + "("
-                + COLUMN_EMAIL + " Text primary key, "
-                + COLUMN_USERNAME + " Text, "
-                + COLUMN_PASSWORD + " Text)");
+        db.execSQL(
+                String.format("CREATE TABLE %s (%s TEXT PRIMARY KEY, %s TEXT, %s TEXT)",
+                        TABLE_NAME, COLUMN_EMAIL, COLUMN_USERNAME, COLUMN_PASSWORD)
+        );
     }
     //Xóa bảng tblUser nếu đã tồn tại
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        db.execSQL("drop Table if exists " + TABLE_NAME);
+        db.execSQL(
+                String.format("drop Table if exists %s", TABLE_NAME)
+        );
     }
     //Thêm dòng giá trị vào bảng
     public Boolean InsertData(UserAdapter _user)
@@ -55,8 +57,10 @@ public class AuthorizeHelper extends SQLiteOpenHelper
     public Cursor isAvailableEmailOrUserName(String Email, String Username)
     {
         SQLiteDatabase myDB = this.getReadableDatabase();
-        Cursor user = myDB.rawQuery("Select * from tblUsers where (email = ? or username = ?)",new String[]{Email, Username});
-        return user;
+        return myDB.rawQuery(
+                String.format("Select * from %s where (%s = ? or %s = ?)",
+                        TABLE_NAME, COLUMN_EMAIL, COLUMN_USERNAME),
+                new String[]{Email, Username});
     }
     public Cursor CheckEmail(String email)
     {

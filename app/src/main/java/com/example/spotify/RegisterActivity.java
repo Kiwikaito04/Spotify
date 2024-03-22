@@ -2,8 +2,6 @@ package com.example.spotify;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Interpolator;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -70,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.SignUp_btnLogin);
     }
     void LoadBtnAction() {
+        //Thêm avatar cho tài khoản
         imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,22 +84,23 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
-        //Xử lý khi nhấp đăng ký
+        //Đăng ký
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //DiaLogProcess.showDialog(RegisterActivity.this,"Loading...");
-                //
+                //Thiết lập thông tin user
                 String email = Email.getText().toString(),
                         username = Username.getText().toString(),
                         password = Password.getText().toString();
                 UserAdapter user = new UserAdapter(email, username, password);
-                if (checkRegister(user)) {
+                //Thử đăng ký tài khoản
+                if (TryRegister(user)) {
+                    //Nếu đăng ký thành công, về Login Activity
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    intent.putExtra("USER", user.getEmail());
+
+
                     startActivity(intent);
-                } else {
-                    Toast.makeText(RegisterActivity.this, "Sign up Failed", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -109,34 +109,30 @@ public class RegisterActivity extends AppCompatActivity {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
     }
-    boolean checkRegister(UserAdapter user) {
-        if (user.getUsername().length() < 6) {
-            Username.setError("Invalid username");
-            return false;
-        }
-        if (user.getEmail().length() < 6 || !IsValidEmail(user.getEmail())) {
-            Email.setError("Invalid Email.");
-            return false;
-        }
-        if (user.getPassword().length() < 3) {
-            Password.setError("Invalid password.");
-            return false;
-        }
-
+    boolean TryRegister(UserAdapter user) {
         if (!user.getPassword().equals(ConfirmPass.getText().toString())) {
-            ConfirmPass.setError("Password not match.");
+            //Kiểm tra và thông báo biểu mẫu không hợp lệ
+            ConfirmPass.setError("Password không trùng khớp.");
+            if (user.getUsername().length() < 6) {
+                Username.setError("Username cần lớn hơn 6 ký tự");
+            }
+            if (!IsValidEmail(user.getEmail())) {
+                Email.setError("Email không hợp lệ");
+            }
+            if (user.getPassword().length() < 3) {
+                Password.setError("Mật khẩu cần lớn hơn 3 ký tự");
+            }
+            if (authorize.isAvailableEmailOrUserName(user.getEmail(), user.getUsername()).getCount() > 0) {
+                Toast.makeText(RegisterActivity.this, "Tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
+            }
+            //Thử đăng ký tài khoản
+            Boolean isSignUp = authorize.InsertData(user);
+            if (!isSignUp) {
+                Toast.makeText(RegisterActivity.this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
-        if (authorize.isAvailableEmailOrUserName(user.getEmail(), user.getUsername()).getCount() > 0) {
-            Toast.makeText(RegisterActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        Boolean isSignUp = authorize.InsertData(user);
-        if (!isSignUp) {
-            Toast.makeText(RegisterActivity.this, "Sign up failed", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        Toast.makeText(RegisterActivity.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(RegisterActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
         return true;
     }
     private void displayBottomSheet() {
