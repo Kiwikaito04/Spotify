@@ -66,13 +66,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String emailOrUsername = Username.getText().toString(),
                         password = Password.getText().toString();
-                if(CheckLogin(emailOrUsername, password))
+                if(TryLogin(emailOrUsername, password))
                 {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -88,22 +86,25 @@ public class LoginActivity extends AppCompatActivity {
         Username = findViewById(R.id.Login_EmailOrUsername);
         Password = findViewById(R.id.Login_Password);
     }
-    private boolean CheckLogin(String emailOrUsername, String password)
+    private boolean TryLogin(String emailOrUsername, String password)
     {
         ClearError();
+        int flag = 0;
         if(emailOrUsername.isEmpty())
         {
             Username.setError("This field is required!");
-            return false;
+            flag++;
         }
         if(password.isEmpty())
         {
             Password.setError("Password is required!");
-            return false;
+            flag++;
         }
+        if(flag > 0)
+            return false;
         if(!authorize.CheckAccount(emailOrUsername,password))
         {
-            Toast.makeText(LoginActivity.this, "Account does not match!", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

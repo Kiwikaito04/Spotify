@@ -120,6 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
         return pattern.matcher(email).matches();
     }
     private boolean TryRegister(UserAdapter user) {
+        ClearError();
         int flag = 0;
         //region Kiểm tra và thông báo biểu mẫu không hợp lệ
         if (!IsValidEmail(user.getEmail())) {
