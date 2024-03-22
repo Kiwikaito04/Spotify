@@ -139,7 +139,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         if(item.getItemId()==R.id.nav_logout){
             Intent intent = new Intent(this,LoginActivity.class);
-
             startActivity(intent);
             finish();
             return true ;
