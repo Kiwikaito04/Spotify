@@ -54,24 +54,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void LoadBtnAction() {
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(i);
-            }
+        btnRegister.setOnClickListener(view -> {
+            Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(i);
         });
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String emailOrUsername = Username.getText().toString(),
-                        password = Password.getText().toString();
-                if(TryLogin(emailOrUsername, password))
-                {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+        btnLogin.setOnClickListener(v -> {
+            String username = this.Username.getText().toString(),
+                    password = Password.getText().toString();
+            if(TryLogin(username, password))
+            {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -86,23 +80,23 @@ public class LoginActivity extends AppCompatActivity {
         Username = findViewById(R.id.Login_EmailOrUsername);
         Password = findViewById(R.id.Login_Password);
     }
-    private boolean TryLogin(String emailOrUsername, String password)
+    private boolean TryLogin(String _username, String _pass)
     {
         ClearError();
         int flag = 0;
-        if(emailOrUsername.isEmpty())
+        if(_username.isEmpty())
         {
             Username.setError("This field is required!");
             flag++;
         }
-        if(password.isEmpty())
+        if(_pass.isEmpty())
         {
             Password.setError("Password is required!");
             flag++;
         }
         if(flag > 0)
             return false;
-        if(!authorize.CheckAccount(emailOrUsername,password))
+        if(!authorize.CheckAccount(_username,_pass))
         {
             Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
             return false;
