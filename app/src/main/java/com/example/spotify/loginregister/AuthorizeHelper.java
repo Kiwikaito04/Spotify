@@ -58,11 +58,13 @@ public class AuthorizeHelper extends SQLiteOpenHelper
     {
         SQLiteDatabase myDB = this.getReadableDatabase();
         return myDB.rawQuery(
-                String.format("Select * from %s where (%s = ? or %s = ?)",
-                        TABLE_NAME, COLUMN_EMAIL, COLUMN_USERNAME),
+                SelectFromWhere("*",
+                        TABLE_NAME,
+                        String.format("%s = ? or %s = ?", COLUMN_EMAIL, COLUMN_USERNAME)
+                ),
                 new String[]{Email, Username});
     }
-    public Cursor CheckEmail(String email)
+    public Cursor isAvailableEmail(String email)
     {
         SQLiteDatabase myDB = this.getReadableDatabase();
         Cursor isAvailableEmail = myDB.rawQuery("Select * from tblUsers where email = ?", new String[]{email});
@@ -72,7 +74,12 @@ public class AuthorizeHelper extends SQLiteOpenHelper
     public Boolean CheckAccount(String Username, String Password)
     {
         SQLiteDatabase myDB = this.getReadableDatabase();
-        Cursor isAvailableAccount = myDB.rawQuery("Select * from tblUsers where (? = ?)", new String[]{ Username, Password});
+        Cursor isAvailableAccount = myDB.rawQuery("Select * from tblUsers where (username = ? and password = ?)", new String[]{ Username, Password});
         return isAvailableAccount.getCount() > 0;
+    }
+    private String SelectFromWhere(String select, String from, String where)
+    {
+        return String.format("select %s from %s where (%s)",
+                select, from, where);
     }
 }

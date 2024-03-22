@@ -1,6 +1,8 @@
 package com.example.spotify;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -18,28 +20,37 @@ public class LoginActivity extends AppCompatActivity {
     EditText Username, Password;
     UserAdapter User;
     Button btnRegister, btnLogin, btnForgotPassword;
+    SharedPreferences SECTION;
+    String KEY_SECTION = "user";
+    String KEY_EMAIL = "user_email";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         LoadFunction();
         LoadBtnAction();
-        LoadUserSection();
-
-
     }
 
     private void LoadUserSection() {
-        Intent intent = getIntent();
-        String User_Email = intent.getStringExtra("USER");
+        SECTION = getSharedPreferences(KEY_SECTION, Context.MODE_PRIVATE);
+        String User_Email = SECTION.getString(String.format("%s",KEY_EMAIL), null);
         if(User_Email != null) {
-            Cursor _user = authorize.CheckEmail(User_Email);
-            User = new UserAdapter(_user.getString(0),
-                    _user.getString(1),
-                    _user.getString(2));
-            Username.setText(User.getUsername());
-            Password.setText(User.getPassword());
+            Cursor _user = authorize.isAvailableEmail(User_Email);
+            if(_user.moveToNext()) {
+                User = new UserAdapter(_user.getString(0),
+                        _user.getString(1),
+                        _user.getString(2));
+                Username.setText(User.getUsername());
+                Password.setText(User.getPassword());
+                ClearSection();
+            }
         }
+    }
+
+    private void ClearSection() {
+        SharedPreferences.Editor editor = SECTION.edit();
+        editor.clear();
+        editor.apply();
     }
 
     private void LoadBtnAction() {
@@ -70,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void LoadFunction() {
         authorize = new AuthorizeHelper(this);
+
         btnRegister = findViewById(R.id.Login_btnSignUp);
         btnLogin = findViewById(R.id.Login_btnLogin);
         btnForgotPassword = findViewById(R.id.Login_btnForgotPassword);
@@ -100,5 +112,11 @@ public class LoginActivity extends AppCompatActivity {
     private void ClearError() {
         Username.setError(null);
         Password.setError(null);
+    }
+    //Hàm sẽ thực hiện sau khi được finish()
+    @Override
+    public void onResume() {
+        super.onResume();
+        LoadUserSection();
     }
 }
