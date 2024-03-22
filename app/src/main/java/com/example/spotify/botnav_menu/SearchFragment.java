@@ -1,14 +1,30 @@
 package com.example.spotify.botnav_menu;
 
+import static java.util.Arrays.*;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.example.spotify.R;
+import com.example.spotify.musichelper.MusicAdapter;
+import com.example.spotify.musichelper.Song;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,7 +63,6 @@ public class SearchFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +72,46 @@ public class SearchFragment extends Fragment {
         }
     }
 
+
+    ListView lv;
+    EditText search;
+    String arr [];
+    ArrayAdapter<String> arrayAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        lv=view.findViewById(R.id.MusicList);
+        search=view.findViewById(R.id.searchFragment);
+        FakeData();
+        EventSearch();
+        return  view;
+    }
+
+    private void EventSearch() {
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SearchFragment.this.arrayAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void FakeData() {
+        arr = new String[]{"Song1", "Song2", "GOku#", "Stage 5", "Song3", "Song5", "Song6", "Song27", "Son6", "Song9"};
+        arrayAdapter=new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,arr);
+        lv.setAdapter(arrayAdapter);
+
     }
 }

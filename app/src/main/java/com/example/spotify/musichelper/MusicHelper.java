@@ -49,7 +49,10 @@ public class MusicHelper extends SQLiteOpenHelper
 
     private void LoadListSongs() {
         SQLiteDatabase myDB = this.getReadableDatabase();
-        Cursor cursor = myDB.rawQuery("Select * from tblMusic", null);
+        Cursor cursor = myDB.rawQuery(
+                String.format("Select * from %s",TABLE_NAME),
+                null
+        );
         while (cursor.moveToNext())
         {
             Integer IDMusic = cursor.getInt(0);
@@ -57,19 +60,23 @@ public class MusicHelper extends SQLiteOpenHelper
             String FileName = cursor.getString(2);
             ListSongs.add(new MusicAdapter(IDMusic, MusicName, FileName));
         }
+        cursor.close();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create Table " + TABLE_NAME + "("
-                + COLUMN_ID + " Text primary key, "
-                + COLUMN_MUSICNAME + " Integer, "
-                + COLUMN_FILENAME + " Text)");
+        db.execSQL(
+                String.format("CREATE TABLE %s (%s TEXT PRIMARY KEY, %s INTEGER, %s TEXT)",
+                TABLE_NAME, COLUMN_ID, COLUMN_MUSICNAME, COLUMN_FILENAME)
+        );
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop Table if exists " + TABLE_NAME);
+        db.execSQL(
+                String.format("drop Table if exists %s",TABLE_NAME)
+        );
     }
     public Boolean InsertMusic(MusicAdapter _music)
     {
