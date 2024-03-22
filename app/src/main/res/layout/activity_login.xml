@@ -51,6 +51,8 @@
             android:layout_height="54dp"
             android:backgroundTint="@color/app_main_bg_op"
             android:padding="12dp"
+            android:textColor="@color/app_main_bg_op"
+            android:background="@drawable/corner_rounded_blue"
             android:text="@string/login" />
 
         <Button

@@ -72,16 +72,15 @@ public class MusicActivity extends AppCompatActivity {
                 if(mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
                     btnPlay.setImageResource(R.drawable.icmusic_play);
+                    disc.clearAnimation();
                 }
                 else{
                     mediaPlayer.start();
                     btnPlay.setImageResource(R.drawable.icmusic_pause);
+                    disc.startAnimation(animation);
                 }
-
-                disc.startAnimation(animation);
                 SetTotalTime();
                 UpdateTimeSong();
-
             }
         });
         btnPause.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +174,7 @@ public class MusicActivity extends AppCompatActivity {
     }
     private  void SetTotalTime(){
         //getduration() tra tong tgian bai hat= m/s=> dinh dang phut/giay =simpledataformat
-        SimpleDateFormat fm=new SimpleDateFormat("mm:ss");
+        SimpleDateFormat fm = new SimpleDateFormat("mm:ss");
         txtSongToTal.setText(fm.format(mediaPlayer.getDuration())+"");
         seekBar.setMax(mediaPlayer.getDuration());
     }

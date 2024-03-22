@@ -12,19 +12,6 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar"/>
-    <TextView
-        android:gravity="center"
-        android:textSize="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Bạn chưa phát bất cứ nội dung nào" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        android:gravity="center"
-        android:text="Tại đây, bạn sẽ tìm thấy toàn bộ lịch sử nghe của mình"
-        android:textSize="20dp" />
 
 </FrameLayout>

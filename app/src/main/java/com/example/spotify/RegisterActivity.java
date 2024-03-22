@@ -7,6 +7,7 @@ import android.graphics.Interpolator;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -24,11 +25,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.spotify.loginregister.AuthorizeHelper;
+import com.example.spotify.loginregister.UserAdapter;
 import com.example.spotify.loginregister.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     AuthorizeHelper authorize;
@@ -91,46 +94,49 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = Email.getText().toString(),
                         username = Username.getText().toString(),
                         password = Password.getText().toString();
-                if (checkRegister(email, username, password)) {
+                UserAdapter user = new UserAdapter(email, username, password);
+                if (checkRegister(user)) {
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    intent.putExtra("USER", user.getEmail());
                     startActivity(intent);
-                    finish();
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Sign up Failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "Sign up Failed", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-    boolean checkRegister(String email, String username, String password) {
-        if (username.length() < 6) {
+    private boolean IsValidEmail(String email) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
+    }
+    boolean checkRegister(UserAdapter user) {
+        if (user.getUsername().length() < 6) {
             Username.setError("Invalid username");
             return false;
         }
-
-        if (email.length() < 6) {
+        if (user.getEmail().length() < 6 || !IsValidEmail(user.getEmail())) {
             Email.setError("Invalid Email.");
             return false;
         }
-
-        if (password.length() < 3) {
+        if (user.getPassword().length() < 3) {
             Password.setError("Invalid password.");
             return false;
         }
 
-        if (!password.equals(ConfirmPass.getText().toString())) {
+        if (!user.getPassword().equals(ConfirmPass.getText().toString())) {
             ConfirmPass.setError("Password not match.");
             return false;
         }
-        if (authorize.isAvailableEmailOrUserName(email, username).getCount() > 0) {
-            Toast.makeText(RegisterActivity.this, "User already exists", Toast.LENGTH_LONG).show();
+        if (authorize.isAvailableEmailOrUserName(user.getEmail(), user.getUsername()).getCount() > 0) {
+            Toast.makeText(RegisterActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
             return false;
         }
-        Boolean user = authorize.InsertData(email, username, password);
-        if (!user) {
-            Toast.makeText(RegisterActivity.this, "Sign up failed", Toast.LENGTH_LONG).show();
+        Boolean isSignUp = authorize.InsertData(user);
+        if (!isSignUp) {
+            Toast.makeText(RegisterActivity.this, "Sign up failed", Toast.LENGTH_SHORT).show();
             return false;
         }
-        Toast.makeText(RegisterActivity.this, "Sign up Successfully", Toast.LENGTH_LONG).show();
+        Toast.makeText(RegisterActivity.this, "Sign up Successfully", Toast.LENGTH_SHORT).show();
         return true;
     }
     private void displayBottomSheet() {

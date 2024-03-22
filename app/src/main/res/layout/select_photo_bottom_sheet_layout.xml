@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/cardview_dark_background"
     android:orientation="vertical"
     android:paddingHorizontal="16dp"
     android:paddingVertical="32dp">
@@ -10,18 +12,23 @@
         android:id="@+id/buttonSelectGallery"
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:background="@color/app_main_bg_op"
+        app:backgroundTint="@color/cardview_dark_background"
         android:drawableLeft="@drawable/baseline_photo_album_24"
         android:drawableTint="@color/app_main_bg"
         android:text="Gallery"
-        android:textColor="@color/app_main_bg_op" />
+        android:textColor="@color/app_main_bg" />
 
     <Button
+        android:layout_marginTop="5dp"
         android:id="@+id/buttonSelectCapture"
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:background="@color/app_main_bg_op"
+        app:backgroundTint="@color/cardview_dark_background"
         android:drawableLeft="@drawable/baseline_camera_alt_24"
         android:drawableTint="@color/app_main_bg"
         android:text="Capture"
-        android:textColor="@color/app_main_bg_op" />
+        android:textColor="@color/app_main_bg" />
 
 </LinearLayout>

@@ -37,11 +37,11 @@ public class MusicHelper extends SQLiteOpenHelper
     }
 
     private void CreateNewListSongs() {
-        Integer[] ID = {1,2};
+
         String[] TenBaiHat = {"ball in the jals","nigg"};
         String[] TenFile = {"music","music2"};
-        for(int i=0 ; i<2 ; i++) {
-            MusicAdapter song = new MusicAdapter(ID[i], TenBaiHat[i], TenFile[i]);
+        for(int i = 0 ; i < TenFile.length ; i++) {
+            MusicAdapter song = new MusicAdapter(i, TenBaiHat[i], TenFile[i]);
             if (!InsertMusic(song))
                 Log.w("Insert song","Some thing went wrong");
         }

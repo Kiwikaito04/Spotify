@@ -37,40 +37,38 @@ public class AuthorizeHelper extends SQLiteOpenHelper
         db.execSQL("drop Table if exists " + TABLE_NAME);
     }
     //Thêm dòng giá trị vào bảng
-    public Boolean InsertData(String email, String username, String password)
+    public Boolean InsertData(UserAdapter _user)
     {
         //Thiết lập chế độ writeable cho db
         SQLiteDatabase myDB = this.getWritableDatabase();
         //Thiết lập content để đưa vào bảng
         ContentValues user = new ContentValues();
-        user.put(COLUMN_EMAIL, email);
-        user.put(COLUMN_USERNAME, username);
-        user.put(COLUMN_PASSWORD, password);
+        user.put(COLUMN_EMAIL, _user.getEmail());
+        user.put(COLUMN_USERNAME, _user.getUsername());
+        user.put(COLUMN_PASSWORD, _user.getPassword());
         //Thêm user vào bảng
         long result = myDB.insert(TABLE_NAME, null, user);
         myDB.close();
         //Nếu không thành công, trả về false
         return result != -1;
     }
-    public Cursor isAvailableEmailOrUserName(String email, String username)
-    {
-        SQLiteDatabase myDB = this.getWritableDatabase();
-        Cursor isAvailable = myDB.rawQuery("Select * from tblUsers where (email = ? or username = ?)", new String[]{email, username});
-        myDB.close();
-        return isAvailable;
-    }
-    public Boolean CheckEmail(String email)
-    {
-        SQLiteDatabase myDB = this.getWritableDatabase();
-        Cursor isAvailableEmail = myDB.rawQuery("Select * from tblUsers where (email = ?)", new String[]{email});
-        myDB.close();
-        return isAvailableEmail.getCount() > 0;
-    }
-    public Boolean CheckAccount(String EmailOrUsername, String password)
+    public Cursor isAvailableEmailOrUserName(String Email, String Username)
     {
         SQLiteDatabase myDB = this.getReadableDatabase();
-        Cursor Account = isAvailableEmailOrUserName(EmailOrUsername, EmailOrUsername);
-        Cursor isAvailableAccount = myDB.rawQuery("Select * from tblUsers where (? = ?)", new String[]{ Account.getString(3), password});
+        Cursor user = myDB.rawQuery("Select * from tblUsers where (email = ? or username = ?)",new String[]{Email, Username});
+        return user;
+    }
+    public Cursor CheckEmail(String email)
+    {
+        SQLiteDatabase myDB = this.getReadableDatabase();
+        Cursor isAvailableEmail = myDB.rawQuery("Select * from tblUsers where email = ?", new String[]{email});
+
+        return isAvailableEmail;
+    }
+    public Boolean CheckAccount(String Username, String Password)
+    {
+        SQLiteDatabase myDB = this.getReadableDatabase();
+        Cursor isAvailableAccount = myDB.rawQuery("Select * from tblUsers where (? = ?)", new String[]{ Username, Password});
         return isAvailableAccount.getCount() > 0;
     }
 }

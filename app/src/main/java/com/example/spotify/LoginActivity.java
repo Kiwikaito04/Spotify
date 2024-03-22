@@ -1,6 +1,7 @@
 package com.example.spotify;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,11 +11,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spotify.loginregister.AuthorizeHelper;
+import com.example.spotify.loginregister.UserAdapter;
 
 public class LoginActivity extends AppCompatActivity {
     AuthorizeHelper authorize;
-    EditText EmailOrUsername, Password;
-
+    EditText Username, Password;
+    UserAdapter User;
     Button btnRegister, btnLogin, btnForgotPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,22 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         LoadFunction();
         LoadBtnAction();
+        LoadUserSection();
+
+
+    }
+
+    private void LoadUserSection() {
+        Intent intent = getIntent();
+        String User_Email = intent.getStringExtra("USER");
+        if(User_Email != null) {
+            Cursor _user = authorize.CheckEmail(User_Email);
+            User = new UserAdapter(_user.getString(0),
+                    _user.getString(1),
+                    _user.getString(2));
+            Username.setText(User.getUsername());
+            Password.setText(User.getPassword());
+        }
     }
 
     private void LoadBtnAction() {
@@ -35,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailOrUsername = EmailOrUsername.getText().toString(),
+                String emailOrUsername = Username.getText().toString(),
                         password = Password.getText().toString();
                 if(CheckLogin(emailOrUsername, password))
                 {
@@ -55,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.Login_btnSignUp);
         btnLogin = findViewById(R.id.Login_btnLogin);
         btnForgotPassword = findViewById(R.id.Login_btnForgotPassword);
-        EmailOrUsername = findViewById(R.id.Login_EmailOrUsername);
+        Username = findViewById(R.id.Login_EmailOrUsername);
         Password = findViewById(R.id.Login_Password);
     }
     private boolean CheckLogin(String emailOrUsername, String password)
@@ -63,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         ClearError();
         if(emailOrUsername.isEmpty())
         {
-            EmailOrUsername.setError("This field is required!");
+            Username.setError("This field is required!");
             return false;
         }
         if(password.isEmpty())
@@ -80,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void ClearError() {
-        EmailOrUsername.setError(null);
+        Username.setError(null);
         Password.setError(null);
     }
 }

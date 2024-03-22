@@ -7,7 +7,7 @@
     <string name="logo_description">Nothing here</string>
 
     <!-- Login activity -->
-    <string name="username_or_email">Tên đăng nhập hoặc email</string>
+    <string name="username_or_email">Tên đăng nhập</string>
     <string name="password">Mật khẩu</string>
     <string name="login">Đăng nhập</string>
     <string name="forgot_password">Quên mật khẩu</string>
