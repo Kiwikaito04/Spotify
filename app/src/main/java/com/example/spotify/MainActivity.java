@@ -3,6 +3,7 @@ package com.example.spotify;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -191,9 +193,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         if (item.getItemId() == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
-            ClearSection();
-            startActivity(intent);
-            finish();
+            AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Đăng xuất !");
+            builder.setMessage("Bạn có chắc là muốn đăng xuất tài khoản ?");
+            builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    ClearSection();
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {dialog.cancel();}
+            });
+            builder.create().show();
             return true;
             }
         return true;
