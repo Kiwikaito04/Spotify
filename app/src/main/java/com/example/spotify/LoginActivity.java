@@ -72,10 +72,10 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-    private void CreateSection(String user) {
+    private void CreateSection(String username) {
         SECTION = getSharedPreferences(KEY_SECTION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = SECTION.edit();
-        editor.putString(KEY_USERNAME, user);
+        editor.putString(KEY_USERNAME, username);
         editor.apply();
     }
     private void LoadFunction() {

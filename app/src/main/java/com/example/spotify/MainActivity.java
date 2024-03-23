@@ -59,15 +59,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void LoadUserSection() {
         SECTION = getSharedPreferences(KEY_SECTION, Context.MODE_PRIVATE);
-        String User_Username = SECTION.getString(String.format("%s",KEY_USERNAME), null);
+        String User_Username = SECTION.getString(KEY_USERNAME, null);
         if(User_Username != null) {
             Cursor _user = authorize.isAvailableUserName(User_Username);
             if(_user.moveToNext()) {
                 User = new UserAdapter(_user.getString(0),
                         _user.getString(1),
                         _user.getString(2));
-
-
             }
         }
     }
@@ -160,8 +158,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-
         //Load các fragment khi ấn vào các item trong left nav
         if(item.getItemId()==R.id.nav_Profile){
             loadFragment(new ProfileFragment());

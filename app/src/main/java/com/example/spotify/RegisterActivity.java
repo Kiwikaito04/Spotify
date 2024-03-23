@@ -53,7 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
     void LoadFunction() {
         authorize = new AuthorizeHelper(this);
-
         //
         relativeLayout = findViewById(R.id.relativeLayout);
         imgAvatar = findViewById(R.id.imageViewAvatar);
