@@ -82,56 +82,47 @@ public class MusicActivity extends AppCompatActivity {
                 UpdateTimeSong();
             }
         });
-        btnPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                CreateMediaPlayer();
-                disc.clearAnimation();
-                btnPlay.setImageResource(R.drawable.icmusic_play);
-            }
+        btnPause.setOnClickListener(v -> {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            CreateMediaPlayer();
+            disc.clearAnimation();
+            btnPlay.setImageResource(R.drawable.icmusic_play);
         });
-        btnLast.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                position++;
+        btnLast.setOnClickListener(v -> {
+            position++;
 
-                //song=4 => 0 1 2 3 0
-                if(position > ListSongs.size()-1 ){
-                    position = 1;
-                }
-                //neu phat nhac thi dung
-                if(mediaPlayer.isPlaying()){
-                    mediaPlayer.stop();
-                }
-                CreateMediaPlayer();
-                mediaPlayer.start();
-                btnPlay.setImageResource(R.drawable.icmusic_pause);
-                disc.startAnimation(animation);
-                SetTotalTime();
-                UpdateTimeSong();
+            //song=4 => 0 1 2 3 0
+            if(position > ListSongs.size()-1 ){
+                position = 1;
             }
+            //neu phat nhac thi dung
+            if(mediaPlayer.isPlaying()){
+                mediaPlayer.stop();
+            }
+            CreateMediaPlayer();
+            mediaPlayer.start();
+            btnPlay.setImageResource(R.drawable.icmusic_pause);
+            disc.startAnimation(animation);
+            SetTotalTime();
+            UpdateTimeSong();
         });
-        btnPrevious.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                position--;
-                //song=4 => 0 1 2 3 0
-                if(position < 1){
-                    position = ListSongs.size()-1;
-                }
-                //neu phat nhac thi dung
-                if(mediaPlayer.isPlaying()){
-                    mediaPlayer.stop();
-                }
-                CreateMediaPlayer();
-                mediaPlayer.start();
-                btnPlay.setImageResource(R.drawable.icmusic_pause);
-                disc.startAnimation(animation);
-                SetTotalTime();
-                UpdateTimeSong();
+        btnPrevious.setOnClickListener(v -> {
+            position--;
+            //song=4 => 0 1 2 3 0
+            if(position < 1){
+                position = ListSongs.size()-1;
             }
+            //neu phat nhac thi dung
+            if(mediaPlayer.isPlaying()){
+                mediaPlayer.stop();
+            }
+            CreateMediaPlayer();
+            mediaPlayer.start();
+            btnPlay.setImageResource(R.drawable.icmusic_pause);
+            disc.startAnimation(animation);
+            SetTotalTime();
+            UpdateTimeSong();
         });
     }
 
@@ -158,9 +149,6 @@ public class MusicActivity extends AppCompatActivity {
 
     private void LoadListSongs() {
         ListSongs = MusicHelper.getListSongs();
-
-//        ListSongs.add(new Song("ball in the jals",R.raw.music));
-//        ListSongs.add(new Song("nigg",R.raw.music2));
     }
 
     private void LoadFunction() {
