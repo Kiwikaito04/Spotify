@@ -72,7 +72,6 @@ public class SearchFragment extends Fragment {
     Context context;
     ListView lv;
     EditText search;
-    String[] arr;
     ArrayAdapter<String> arrayAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

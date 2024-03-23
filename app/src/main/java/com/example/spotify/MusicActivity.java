@@ -2,6 +2,7 @@ package com.example.spotify;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -33,7 +34,7 @@ public class MusicActivity extends AppCompatActivity {
     ImageView disc;
     SeekBar seekBar, Volume_seekbar;
     ArrayList<MusicAdapter> ListSongs;
-    int position = 1;
+    int position;
     MediaPlayer mediaPlayer;
 
     AudioManager audioManager;
@@ -45,7 +46,7 @@ public class MusicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_music);
-
+        LoadSelectedSong();
         LoadFunction();
         LoadListSongs();
         CreateMediaPlayer();
@@ -70,6 +71,15 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void LoadSelectedSong() {
+        Intent intent = getIntent();
+        String selectedSong = intent.getStringExtra("selectedSong");
+        if(selectedSong != null)
+            position = Integer.parseInt(selectedSong);
+        else position = 1;
+    }
+
     private void LoadBtnAction() {
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override

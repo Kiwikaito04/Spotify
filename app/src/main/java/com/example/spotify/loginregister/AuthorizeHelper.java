@@ -1,5 +1,6 @@
 package com.example.spotify.loginregister;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -62,7 +63,8 @@ public class AuthorizeHelper extends SQLiteOpenHelper
                         TABLE_NAME,
                         String.format("%s = ? or %s = ?", COLUMN_EMAIL, COLUMN_USERNAME)
                 ),
-                new String[]{Email, Username});
+                new String[]{Email, Username}
+        );
     }
     public Cursor isAvailableUserName(String Username)
     {
@@ -72,19 +74,21 @@ public class AuthorizeHelper extends SQLiteOpenHelper
                         TABLE_NAME,
                         String.format("%s = ?", COLUMN_USERNAME)
                 ),
-                new String[]{Username});
+                new String[]{Username}
+        );
     }
     public Cursor isAvailableEmail(String email)
     {
         SQLiteDatabase myDB = this.getReadableDatabase();
-        Cursor isAvailableEmail = myDB.rawQuery("Select * from tblUsers where email = ?", new String[]{email});
-
-        return isAvailableEmail;
+        return myDB.rawQuery(
+                "Select * from tblUsers where email = ?",
+                new String[]{email}
+        );
     }
     public Boolean CheckAccount(String Username, String Password)
     {
         SQLiteDatabase myDB = this.getReadableDatabase();
-        Cursor isAvailableAccount = myDB.rawQuery("Select * from tblUsers where (username = ? and password = ?)", new String[]{ Username, Password});
+        @SuppressLint("Recycle") Cursor isAvailableAccount = myDB.rawQuery("Select * from tblUsers where (username = ? and password = ?)", new String[]{ Username, Password});
         return isAvailableAccount.getCount() > 0;
     }
     private String SelectFromWhere(String select, String from, String where)
