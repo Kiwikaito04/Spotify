@@ -1,6 +1,5 @@
 package com.example.spotify;
 
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +30,7 @@ public class MusicActivity extends AppCompatActivity {
     ImageView disc;
     SeekBar seekBar;
     ArrayList<MusicAdapter> ListSongs;
-    int position = 0;
+    int position = 1;
     MediaPlayer mediaPlayer;
     Animation animation;
     MusicHelper musicHelper;
@@ -108,6 +107,7 @@ public class MusicActivity extends AppCompatActivity {
                 }
                 CreateMediaPlayer();
                 mediaPlayer.start();
+                btnPlay.setImageResource(R.drawable.icmusic_pause);
                 disc.startAnimation(animation);
                 SetTotalTime();
                 UpdateTimeSong();
@@ -128,6 +128,7 @@ public class MusicActivity extends AppCompatActivity {
                 }
                 CreateMediaPlayer();
                 mediaPlayer.start();
+                btnPlay.setImageResource(R.drawable.icmusic_pause);
                 disc.startAnimation(animation);
                 SetTotalTime();
                 UpdateTimeSong();
@@ -137,17 +138,23 @@ public class MusicActivity extends AppCompatActivity {
 
     private void CreateMediaPlayer() {
         // Lấy tên tệp từ danh sách ListSongs ở vị trí được chỉ định
-        String fileName = ListSongs.get(position).getFileName();
+        String MusicFileName = ListSongs.get(position).getFileName();
         // Lấy ID của tệp dựa trên tên
-        int fileID = getResources().getIdentifier(fileName, "raw", getPackageName());
+        int IDMusicFile = getResources().getIdentifier(MusicFileName, "raw", getPackageName());
         // Kiểm tra xem ID có hợp lệ không
-        if (fileID != 0) {
-            mediaPlayer = MediaPlayer.create(MusicActivity.this, fileID); // Sử dụng ID để tạo MediaPlayer
+        if (IDMusicFile != 0) {
+            mediaPlayer = MediaPlayer.create(MusicActivity.this, IDMusicFile); // Sử dụng ID để tạo MediaPlayer
         } else {
             // Xử lý trường hợp không tìm thấy tệp
         }
         txtTenBaiHat.setText(ListSongs.get(position).getMusicName());
 
+        String ImageFileName = ListSongs.get(position).getImageMusic();
+        int IDImage = getResources().getIdentifier(ImageFileName, "drawable", getPackageName());
+        if(IDImage != 0)
+        {
+            disc.setImageResource(IDImage);
+        }
     }
 
     private void LoadListSongs() {

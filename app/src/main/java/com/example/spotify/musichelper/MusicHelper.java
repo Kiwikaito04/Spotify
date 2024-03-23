@@ -35,7 +35,8 @@ public class MusicHelper extends SQLiteOpenHelper
     }
 
     private void CreateNewListSongs(Context context) {
-
+        if (!InsertMusic(new MusicAdapter(0, null, null, null)))
+            Log.w("Insert song","Some thing went wrong");
         String[] TenBaiHat = { null,
                 "Yoru ni Kakeru", "Halzion", "Yome Wo Nazotte", "Gunjo", "Monster", "Haruka", "Lover Letter", "RGB", "The Blessing", "Moshimo Inochi Ga Egaketara", "Idol", "Yuusha", "Tsubame", "Gods", "Legends never die", "ただ声一つ", "Lemon", "Unravel", "Hare hare ya", "Renai Circulation", "Senbonzakura", "Tháng tư là lời nói dối của em", "Một bước yêu vạn dặm đau", "Em của ngày hôm qua", "Hạ còn vương nắng", "Tình yêu màu Nắng", "Thu cuối", "Nếu như anh đến", "Chiếc khăn gió ấm", "Tấm lòng son", "Sóng gió", "Chạy về khóc với anh", "Short skirt", "Nàng thơ", "Shape of you", "Attention", "Havana", "Despacito", "Kawaiikute Gomen", "Đôi mắt", "Anh nhà ở đâu thế", "Lạc trôi", "Tabun", "BigCityBoi", "Vợ người ta"
             };
@@ -73,7 +74,8 @@ public class MusicHelper extends SQLiteOpenHelper
             Integer IDMusic = cursor.getInt(0);
             String MusicName = cursor.getString(1);
             String FileName = cursor.getString(2);
-            ListSongs.add(new MusicAdapter(IDMusic, MusicName, FileName, null));
+            String ImageName = cursor.getString(3);
+            ListSongs.add(new MusicAdapter(IDMusic, MusicName, FileName, ImageName));
         }
         cursor.close();
     }
