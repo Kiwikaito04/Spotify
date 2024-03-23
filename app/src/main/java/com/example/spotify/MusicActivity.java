@@ -46,13 +46,19 @@ public class MusicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_music);
-        LoadSelectedSong();
+
         LoadFunction();
         LoadListSongs();
+        LoadSelectedSong();
         CreateMediaPlayer();
         SetVolume();
         LoadBtnAction();
         animation = AnimationUtils.loadAnimation(this,R.anim.disc_rotation);
+        LoadSeekBar();
+        btnPlay.performClick();
+    }
+
+    private void LoadSeekBar() {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
