@@ -1,12 +1,9 @@
 package com.example.spotify.botnav_menu;
 
-import static java.util.Arrays.*;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -17,18 +14,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.spotify.MusicActivity;
 import com.example.spotify.R;
 import com.example.spotify.musichelper.MusicAdapter;
 import com.example.spotify.musichelper.MusicHelper;
-import com.example.spotify.musichelper.Song;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,7 +69,7 @@ public class SearchFragment extends Fragment {
         }
     }
 
-
+    Context context;
     ListView lv;
     EditText search;
     String[] arr;
@@ -87,12 +80,10 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         lv = view.findViewById(R.id.MusicList);
-        search=view.findViewById(R.id.searchFragment);
-        LoadDataFromDatabase();
+        search = view.findViewById(R.id.searchFragment);
+        context = getContext();
+        FakeData();
         EventSearch();
-
-
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -100,12 +91,11 @@ public class SearchFragment extends Fragment {
                 String selectedSong = (String) parent.getItemAtPosition(position);
 
                 // Xử lý khi người dùng nhấn vào một mục trong danh sách
-                goToSelectedSong(selectedSong);
+                if(selectedSong != null)
+                    goToSelectedSong(selectedSong);
             }
         });
-
         return  view;
-
     }
 
     private void EventSearch() {
@@ -127,21 +117,20 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    private void LoadDataFromDatabase() {
+    private void FakeData() {
         ArrayList<MusicAdapter> songs = MusicHelper.getListSongs();
         ArrayList<String> songNames = new ArrayList<>();
         ArrayList<String> Img_music = new ArrayList<>();
-        for (MusicAdapter song : songs) {
-            songNames.add(song.getMusicName());
+        for (int i = 1 ; i < songs.size() ; i++) {
+            songNames.add(songs.get(i).getMusicName());
         }
         arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, songNames);
-
         lv.setAdapter(arrayAdapter);
 
     }
-
     private void goToSelectedSong(String selectedSong) {
         // Thực hiện hành động chuyển đến bài hát tương ứng
+        // Ví dụ: Mở một Activity mới để hiển thị bài hát
         Intent intent = new Intent(getActivity(), MusicActivity.class);
         intent.putExtra("selectedSong", selectedSong);
         startActivity(intent);
