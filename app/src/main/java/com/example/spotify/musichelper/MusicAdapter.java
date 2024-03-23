@@ -1,17 +1,19 @@
 package com.example.spotify.musichelper;
 
-import android.graphics.Bitmap;
+import androidx.annotation.Nullable;
 
 public class MusicAdapter {
     private Integer IDMusic;
     private String MusicName;
     private String FileName;
+    private byte[] ImageMusic;
 
-    public MusicAdapter(Integer idMusic, String musicName, String fileName)
+    public MusicAdapter(Integer idMusic, String musicName, String fileName, byte[] imageMusic)
     {
         IDMusic = idMusic;
         MusicName = musicName;
         FileName = fileName;
+        ImageMusic = imageMusic;
     }
 
     public Integer getIDMusic() {
@@ -31,5 +33,12 @@ public class MusicAdapter {
     }
     public void setFileName(String fileName) {
         FileName = fileName;
+    }
+    public byte[] getImageMusic() {
+        return ImageMusic;
+    }
+
+    public void setImageMusic(byte[] imageMusic) {
+        ImageMusic = imageMusic;
     }
 }

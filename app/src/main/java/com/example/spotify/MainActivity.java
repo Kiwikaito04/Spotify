@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.spotify.botnav_menu.HomeFragment;
@@ -25,21 +26,22 @@ import com.example.spotify.leftnav_menu.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNav;
     DrawerLayout drawerLayout;
     ActionBar actionBar;
-
+    MenuItem btnLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         LoadFunction();
-        addBottomNavEvents();
-        Navigation(savedInstanceState); // Truyền tham số savedInstanceState vào phương thức Navigation
-    }
 
+        addBottomNavEvents();
+        LoadNavigation();
+    }
 
     private void addBottomNavEvents() {
         //Sự kiện khi chọn các Item trong Bottom Nav
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         loadFragment(new HomeFragment()); //Chạy fragment mặc định là Home
     }
 
-    private void Navigation(Bundle savedInstanceState) {
+    private void LoadNavigation() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -95,12 +97,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-
-        /*if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_Profile);
-        }*/
     }
 
     private void LoadNavFrag(Fragment fmnav) {
@@ -154,5 +150,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }

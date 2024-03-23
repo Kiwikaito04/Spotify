@@ -131,9 +131,6 @@ public class MusicActivity extends AppCompatActivity {
                 disc.startAnimation(animation);
                 SetTotalTime();
                 UpdateTimeSong();
-
-
-
             }
         });
     }
