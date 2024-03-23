@@ -87,11 +87,10 @@ public class SearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Lấy tên bài hát tương ứng
-                String selectedSong = (String) parent.getItemAtPosition(position);
+                String selectedSong = String.valueOf(position);
 
                 // Xử lý khi người dùng nhấn vào một mục trong danh sách
-                if(selectedSong != null)
-                    goToSelectedSong(selectedSong);
+                goToSelectedSong(selectedSong);
             }
         });
         return  view;
