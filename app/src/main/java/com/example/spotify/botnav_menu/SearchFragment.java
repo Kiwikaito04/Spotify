@@ -142,7 +142,6 @@ public class SearchFragment extends Fragment {
 
     private void goToSelectedSong(String selectedSong) {
         // Thực hiện hành động chuyển đến bài hát tương ứng
-        // Ví dụ: Mở một Activity mới để hiển thị bài hát
         Intent intent = new Intent(getActivity(), MusicActivity.class);
         intent.putExtra("selectedSong", selectedSong);
         startActivity(intent);
