@@ -5,13 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class MusicHelper extends SQLiteOpenHelper
@@ -41,17 +38,8 @@ public class MusicHelper extends SQLiteOpenHelper
                 "Yoru ni Kakeru", "Halzion", "Yome Wo Nazotte", "Gunjo", "Monster", "Haruka", "Lover Letter", "RGB", "The Blessing", "Moshimo Inochi Ga Egaketara", "Idol", "Yuusha", "Tsubame", "Gods", "Legends never die", "ただ声一つ", "Lemon", "Unravel", "Hare hare ya", "Renai Circulation", "Senbonzakura", "Tháng tư là lời nói dối của em", "Một bước yêu vạn dặm đau", "Em của ngày hôm qua", "Hạ còn vương nắng", "Tình yêu màu Nắng", "Thu cuối", "Nếu như anh đến", "Chiếc khăn gió ấm", "Tấm lòng son", "Sóng gió", "Chạy về khóc với anh", "Short skirt", "Nàng thơ", "Shape of you", "Attention", "Havana", "Despacito", "Kawaiikute Gomen", "Đôi mắt", "Anh nhà ở đâu thế", "Lạc trôi", "Tabun", "BigCityBoi", "Vợ người ta"
             };
 //        String[] TenBaiHat = {null, "Test 1", "Test 2"};
-        byte[] img;
 
         for(int i = 1 ; i <= TenBaiHat.length ; i++) {
-//            int imgID = context.getResources().getIdentifier(String.format("%s%s","pt_", i), "drawable", context.getPackageName());
-//            if(imgID != 0) {
-//                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imgID);
-//                ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArray);
-//                img = byteArray.toByteArray();
-//            }
-//            else img = null;
             MusicAdapter song = new MusicAdapter(
                     i,
                     TenBaiHat[i],
