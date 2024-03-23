@@ -1,5 +1,8 @@
 package com.example.spotify;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,10 +31,12 @@ public class MusicActivity extends AppCompatActivity {
     TextView txtTenBaiHat,txtSongToTal,txtTimeSong;
     ImageButton btnPlay, btnPrevious, btnLast, btnPause;
     ImageView disc;
-    SeekBar seekBar;
+    SeekBar seekBar, Volume_seekbar;
     ArrayList<MusicAdapter> ListSongs;
     int position = 1;
     MediaPlayer mediaPlayer;
+
+    AudioManager audioManager;
     Animation animation;
     MusicHelper musicHelper;
     //endregion
@@ -44,6 +49,7 @@ public class MusicActivity extends AppCompatActivity {
         LoadFunction();
         LoadListSongs();
         CreateMediaPlayer();
+        SetVolume();
         LoadBtnAction();
         animation = AnimationUtils.loadAnimation(this,R.anim.disc_rotation);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -174,13 +180,45 @@ public class MusicActivity extends AppCompatActivity {
         txtTimeSong = findViewById(R.id.Music_TimeSong);
         btnPause = findViewById(R.id.Music_btnPause);
         seekBar = findViewById(R.id.Music_btnSeekBar);
+        Volume_seekbar = findViewById(R.id.Volume_btnSeekBar);
         disc = findViewById(R.id.Music_disc);
     }
-    private  void SetTotalTime(){
+    private void SetTotalTime(){
         //getduration() tra tong tgian bai hat= m/s=> dinh dang phut/giay =simpledataformat
         SimpleDateFormat fm = new SimpleDateFormat("mm:ss");
         txtSongToTal.setText(fm.format(mediaPlayer.getDuration())+"");
         seekBar.setMax(mediaPlayer.getDuration());
+    }
+
+    @SuppressLint("ServiceCast")
+    private void SetVolume()
+    {
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+
+        int curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+        Volume_seekbar.setMax(maxVolume);
+
+        Volume_seekbar.setProgress(curVolume);
+
+        Volume_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
     }
     private  void UpdateTimeSong(){
         Handler handler = new Handler();
