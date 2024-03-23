@@ -1,5 +1,6 @@
 package com.example.spotify;
 
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spotify.musichelper.MusicAdapter;
 import com.example.spotify.musichelper.MusicHelper;
-import com.example.spotify.musichelper.Song;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -146,8 +146,8 @@ public class MusicActivity extends AppCompatActivity {
         } else {
             // Xử lý trường hợp không tìm thấy tệp
         }
-
         txtTenBaiHat.setText(ListSongs.get(position).getMusicName());
+
     }
 
     private void LoadListSongs() {
@@ -159,6 +159,7 @@ public class MusicActivity extends AppCompatActivity {
 
     private void LoadFunction() {
         musicHelper = new MusicHelper(this);
+
         btnPlay = findViewById(R.id.Music_btnPlay);
         btnPrevious = findViewById(R.id.Music_btnPrevious);
         btnLast = findViewById(R.id.Music_btnLast);

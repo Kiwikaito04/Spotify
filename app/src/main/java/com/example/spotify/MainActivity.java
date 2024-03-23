@@ -29,6 +29,7 @@ import com.example.spotify.leftnav_menu.ProfileFragment;
 import com.example.spotify.leftnav_menu.SettingsFragment;
 import com.example.spotify.loginregister.AuthorizeHelper;
 import com.example.spotify.loginregister.UserAdapter;
+import com.example.spotify.musichelper.MusicHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ActionBar actionBar;
     MenuItem MILogin;
     MenuItem MILogout;
+    MusicHelper musicHelper;
     AuthorizeHelper authorize;
     UserAdapter User;
     SharedPreferences SECTION;
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBar = getSupportActionBar();
         loadFragment(new HomeFragment()); //Chạy fragment mặc định là Home
         authorize = new AuthorizeHelper(this);
+        musicHelper = new MusicHelper(this);
     }
 
     private void LoadNavigation() {

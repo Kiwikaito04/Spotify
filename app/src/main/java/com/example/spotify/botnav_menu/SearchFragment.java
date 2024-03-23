@@ -75,14 +75,14 @@ public class SearchFragment extends Fragment {
 
     ListView lv;
     EditText search;
-    String arr [];
+    String[] arr;
     ArrayAdapter<String> arrayAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-        lv=view.findViewById(R.id.MusicList);
+        lv = view.findViewById(R.id.MusicList);
         search=view.findViewById(R.id.searchFragment);
         FakeData();
         EventSearch();
