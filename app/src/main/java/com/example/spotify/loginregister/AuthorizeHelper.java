@@ -64,6 +64,16 @@ public class AuthorizeHelper extends SQLiteOpenHelper
                 ),
                 new String[]{Email, Username});
     }
+    public Cursor isAvailableUserName(String Username)
+    {
+        SQLiteDatabase myDB = this.getReadableDatabase();
+        return myDB.rawQuery(
+                SelectFromWhere("*",
+                        TABLE_NAME,
+                        String.format("%s = ?", COLUMN_USERNAME)
+                ),
+                new String[]{Username});
+    }
     public Cursor isAvailableEmail(String email)
     {
         SQLiteDatabase myDB = this.getReadableDatabase();

@@ -24,6 +24,7 @@ public class MusicHelper extends SQLiteOpenHelper
     public static final String COLUMN_ID = "ID_Music";
     public static final String COLUMN_MUSICNAME = "MusicName";
     public static final String COLUMN_FILENAME = "FileName";
+    public static final String COLUMN_IMAGE = "ImageMusic";
     public static ArrayList<MusicAdapter> ListSongs = new ArrayList<>();
     public MusicHelper(@Nullable Context context)
     {
@@ -66,8 +67,8 @@ public class MusicHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
-                String.format("CREATE TABLE %s (%s TEXT PRIMARY KEY, %s INTEGER, %s TEXT)",
-                TABLE_NAME, COLUMN_ID, COLUMN_MUSICNAME, COLUMN_FILENAME)
+                String.format("CREATE TABLE %s (%s TEXT PRIMARY KEY, %s INTEGER, %s TEXT, %s byte[])",
+                TABLE_NAME, COLUMN_ID, COLUMN_MUSICNAME, COLUMN_FILENAME, COLUMN_IMAGE)
         );
 
     }

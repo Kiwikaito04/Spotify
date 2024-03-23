@@ -10,12 +10,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.TextView;
 
 import com.example.spotify.botnav_menu.HomeFragment;
 import com.example.spotify.botnav_menu.LibaryFragment;
@@ -25,6 +27,8 @@ import com.example.spotify.leftnav_menu.HistoryFragment;
 import com.example.spotify.leftnav_menu.NewsFragment;
 import com.example.spotify.leftnav_menu.ProfileFragment;
 import com.example.spotify.leftnav_menu.SettingsFragment;
+import com.example.spotify.loginregister.AuthorizeHelper;
+import com.example.spotify.loginregister.UserAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,19 +37,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     BottomNavigationView bottomNav;
     DrawerLayout drawerLayout;
     ActionBar actionBar;
-
-    boolean isLoggedIn;
-    MenuItem loginitem;
-    MenuItem logoutitem;
+    MenuItem MILogin;
+    MenuItem MILogout;
+    AuthorizeHelper authorize;
+    UserAdapter User;
+    SharedPreferences SECTION;
+    String KEY_SECTION = "user";
+    String KEY_USERNAME = "user_username";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         LoadFunction();
+        LoadUserSection();
         addBottomNavEvents();
-        Navigation(savedInstanceState); // Truyền tham số savedInstanceState vào phương thức Navigation
+        LoadNavigation();
+    }
 
+    private void LoadUserSection() {
+        SECTION = getSharedPreferences(KEY_SECTION, Context.MODE_PRIVATE);
+        String User_Username = SECTION.getString(String.format("%s",KEY_USERNAME), null);
+        if(User_Username != null) {
+            Cursor _user = authorize.isAvailableUserName(User_Username);
+            if(_user.moveToNext()) {
+                User = new UserAdapter(_user.getString(0),
+                        _user.getString(1),
+                        _user.getString(2));
+
+
+            }
+        }
+    }
+    private void ClearSection() {
+        SharedPreferences.Editor editor = SECTION.edit();
+        editor.clear();
+        editor.apply();
     }
     private void addBottomNavEvents() {
         //Sự kiện khi chọn các Item trong Bottom Nav
@@ -54,22 +81,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Sự kiện với Item đã chọn
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 //Khi nhấn Home
-                if(item.getItemId()==R.id.botNav_Home){
+                if(item.getItemId() == R.id.botNav_Home){
                     loadFragment(new HomeFragment());
                     return true ;
                 }
                 //Khi nhấn Search
-                if(item.getItemId()==R.id.botNav_Search){
+                if(item.getItemId() == R.id.botNav_Search){
                     loadFragment(new SearchFragment());
                     return true ;
                 }
                 //Khi nhấn Library
-                if(item.getItemId()==R.id.botNav_Library){
+                if(item.getItemId() == R.id.botNav_Library){
                     loadFragment(new LibaryFragment());
                     return true ;
                 }
                 //Khi nhấn Premium
-                if(item.getItemId()==R.id.botNav_Premium){
+                if(item.getItemId() == R.id.botNav_Premium){
                     loadFragment(new PremiumFragment());
                     return true ;
                 }
@@ -90,9 +117,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bottomNav = findViewById(R.id.bottomNav);
         actionBar = getSupportActionBar();
         loadFragment(new HomeFragment()); //Chạy fragment mặc định là Home
+        authorize = new AuthorizeHelper(this);
     }
 
-    private void Navigation(Bundle savedInstanceState) {
+    private void LoadNavigation() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -101,18 +129,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-
-        /*if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_Profile);
-        }*/
-    }
-
-    private void LoadNavFrag(Fragment fmnav) {
-        FragmentTransaction fmTran=getSupportFragmentManager().beginTransaction();
-        fmTran.replace(R.id.fragment_container,fmnav);
-        fmTran.commit();
     }
 
     @Override
@@ -120,22 +136,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.nav_menu,menu);
         NavigationView navigationView= (NavigationView) findViewById(R.id.nav_view);
-        menu=navigationView.getMenu();
-
-        loginitem=menu.findItem(R.id.nav_login);
-        logoutitem=menu.findItem(R.id.nav_logout);
-        LoginCheck();
+        Menu menu_left = navigationView.getMenu();
+        MILogin = menu_left.findItem(R.id.nav_login);
+        MILogout = menu_left.findItem(R.id.nav_logout);
+        LoginCheck(User);
         return true;
     }
 
-    private void LoginCheck() {
-        if (true) {
-            loginitem.setVisible(false);
-            logoutitem.setVisible(true);
+    private void LoginCheck(UserAdapter user) {
+        if (user != null) {
+            MILogin.setVisible(false);
+            MILogout.setVisible(true);
+            TextView test = findViewById(R.id.headName);
+            test.setText(String.format("Xin chào, %s",user.getUsername()));
         }
         else{
-            loginitem.setVisible(true);
-            logoutitem.setVisible(false);
+            MILogin.setVisible(true);
+            MILogout.setVisible(false);
         }
     }
     @Override
@@ -171,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         if (item.getItemId() == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
+            ClearSection();
             startActivity(intent);
             finish();
             return true;

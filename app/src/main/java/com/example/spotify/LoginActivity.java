@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnRegister, btnLogin, btnForgotPassword;
     SharedPreferences SECTION;
     String KEY_SECTION = "user";
+    String KEY_USERNAME = "user_username";
     String KEY_EMAIL = "user_email";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +65,19 @@ public class LoginActivity extends AppCompatActivity {
             if(TryLogin(username, password))
             {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                CreateSection(username);
                 startActivity(intent);
                 finish();
             }
         });
 
     }
-
+    private void CreateSection(String user) {
+        SECTION = getSharedPreferences(KEY_SECTION, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = SECTION.edit();
+        editor.putString(KEY_USERNAME, user);
+        editor.apply();
+    }
     private void LoadFunction() {
         authorize = new AuthorizeHelper(this);
 

@@ -1,26 +1,26 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:id="@+id/nav_header"
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:gravity="bottom"
+    android:orientation="vertical"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/profile"
-        android:layout_marginLeft="6dp"/>
+        android:layout_marginLeft="6dp"
+        android:src="@drawable/profile" />
+
     <TextView
+        android:id="@+id/headName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tên hồ sơ"
-        android:id="@+id/headName"
-        android:textColor="@color/black"/>
-
+        android:textColor="@color/black" />
 
 
 </LinearLayout>

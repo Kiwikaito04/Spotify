@@ -101,7 +101,6 @@ public class RegisterActivity extends AppCompatActivity {
                 if (TryRegister(user)) {
                     //Nếu đăng ký thành công, tạo phiên đăng nhập, về Login Activity
                     CreateSection(user);
-
                     finish();
                 }
             }
