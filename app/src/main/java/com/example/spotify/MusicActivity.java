@@ -98,8 +98,8 @@ public class MusicActivity extends AppCompatActivity {
                 position++;
 
                 //song=4 => 0 1 2 3 0
-                if(position> ListSongs.size()-1){
-                    position=0;
+                if(position > ListSongs.size()-1 ){
+                    position = 1;
                 }
                 //neu phat nhac thi dung
                 if(mediaPlayer.isPlaying()){
@@ -117,9 +117,8 @@ public class MusicActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 position--;
-
                 //song=4 => 0 1 2 3 0
-                if(position<0){
+                if(position < 1){
                     position = ListSongs.size()-1;
                 }
                 //neu phat nhac thi dung
