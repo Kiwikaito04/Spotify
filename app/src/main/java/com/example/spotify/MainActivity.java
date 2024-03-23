@@ -3,6 +3,7 @@ package com.example.spotify;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -59,15 +61,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void LoadUserSection() {
         SECTION = getSharedPreferences(KEY_SECTION, Context.MODE_PRIVATE);
-        String User_Username = SECTION.getString(String.format("%s",KEY_USERNAME), null);
+        String User_Username = SECTION.getString(KEY_USERNAME, null);
         if(User_Username != null) {
             Cursor _user = authorize.isAvailableUserName(User_Username);
             if(_user.moveToNext()) {
                 User = new UserAdapter(_user.getString(0),
                         _user.getString(1),
                         _user.getString(2));
-
-
             }
         }
     }
@@ -160,8 +160,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-
         //Load các fragment khi ấn vào các item trong left nav
         if(item.getItemId()==R.id.nav_Profile){
             loadFragment(new ProfileFragment());
@@ -191,9 +189,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         if (item.getItemId() == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
-            ClearSection();
-            startActivity(intent);
-            finish();
+            AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Đăng xuất !");
+            builder.setMessage("Bạn có chắc là muốn đăng xuất tài khoản ?");
+            builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    ClearSection();
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {dialog.cancel();}
+            });
+            builder.create().show();
             return true;
             }
         return true;

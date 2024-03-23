@@ -1,7 +1,5 @@
 package com.example.spotify.musichelper;
 
-import androidx.annotation.Nullable;
-
 public class MusicAdapter {
     private Integer IDMusic;
     private String MusicName;
