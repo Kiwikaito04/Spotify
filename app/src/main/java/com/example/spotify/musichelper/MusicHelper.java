@@ -41,7 +41,7 @@ public class MusicHelper extends SQLiteOpenHelper
         String[] TenBaiHat = {"ball in the jals","nigg"};
         String[] TenFile = {"music","music2"};
         for(int i = 0 ; i < TenFile.length ; i++) {
-            MusicAdapter song = new MusicAdapter(i, TenBaiHat[i], TenFile[i]);
+            MusicAdapter song = new MusicAdapter(i, TenBaiHat[i], TenFile[i], null);
             if (!InsertMusic(song))
                 Log.w("Insert song","Some thing went wrong");
         }
@@ -58,7 +58,7 @@ public class MusicHelper extends SQLiteOpenHelper
             Integer IDMusic = cursor.getInt(0);
             String MusicName = cursor.getString(1);
             String FileName = cursor.getString(2);
-            ListSongs.add(new MusicAdapter(IDMusic, MusicName, FileName));
+            ListSongs.add(new MusicAdapter(IDMusic, MusicName, FileName, null));
         }
         cursor.close();
     }
