@@ -12,7 +12,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.spotify.botnav_menu.HomeFragment;
 import com.example.spotify.botnav_menu.LibaryFragment;
@@ -31,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     ActionBar actionBar;
 
+    boolean isLoggedIn;
+    MenuItem loginitem;
+    MenuItem logoutitem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LoadFunction();
         addBottomNavEvents();
         Navigation(savedInstanceState); // Truyền tham số savedInstanceState vào phương thức Navigation
+
     }
-
-
     private void addBottomNavEvents() {
         //Sự kiện khi chọn các Item trong Bottom Nav
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -108,8 +114,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fmTran.replace(R.id.fragment_container,fmnav);
         fmTran.commit();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.nav_menu,menu);
+        NavigationView navigationView= (NavigationView) findViewById(R.id.nav_view);
+        menu=navigationView.getMenu();
+
+        loginitem=menu.findItem(R.id.nav_login);
+        logoutitem=menu.findItem(R.id.nav_logout);
+        LoginCheck();
+        return true;
+    }
+
+    private void LoginCheck() {
+        if (true) {
+            loginitem.setVisible(false);
+            logoutitem.setVisible(true);
+        }
+        else{
+            loginitem.setVisible(true);
+            logoutitem.setVisible(false);
+        }
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
         //Load các fragment khi ấn vào các item trong left nav
         if(item.getItemId()==R.id.nav_Profile){
             loadFragment(new ProfileFragment());
@@ -132,21 +164,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true ;
         }
         if(item.getItemId()==R.id.nav_login){
-            Intent intent = new Intent(this,LoginActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
-            return true ;
-        }
-        if(item.getItemId()==R.id.nav_logout){
-            Intent intent = new Intent(this,LoginActivity.class);
+            return true;
+            }
+        if (item.getItemId() == R.id.nav_logout) {
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
-            return true ;
-        }
-
+            return true;
+            }
         return true;
     }
-
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
