@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".botnav_menu.SearchFragment">
+    tools:context=".botnav_menu.SearchFragment"
+    android:background="@color/background_blur">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +27,8 @@
             android:layout_height="80dp"
             android:drawableLeft="@drawable/ic_search"
             android:hint="Search Music"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColorHint="@color/black"/>
 
         <ListView
             android:id="@+id/MusicList"
