@@ -139,11 +139,11 @@ public class HomeFragment extends Fragment {
         int random = 5;
         int n = random;
         for(int i = 0 ; i < n ; i++) {
-            random = new Random().nextInt(ListSongs.size() - 2) + 1;
+            random = new Random().nextInt(ListSongs.size() - 1);
             int imgID = getIDImg(random);
             if(imgID != 0) {
-                Ranking.add(new MusicClass(imgID, "Sơn Tùng M-TP"));
-                Position[index].add(ListSongs.get(random).getIDMusic());
+                Ranking.add(new MusicClass(imgID, ListSongs.get(random).getMusicName()));
+                Position[index].add(random);
             }
         }
     }
@@ -158,11 +158,11 @@ public class HomeFragment extends Fragment {
         int random = 5;
         int n = random;
         for(int i = 0 ; i < n ; i++) {
-            random = new Random().nextInt(ListSongs.size() - 2) + 1;
+            random = new Random().nextInt(ListSongs.size() - 1);
             int imgID = getIDImg(random);
             if(imgID != 0) {
-                latestList.add(new MusicClass(imgID, "Sơn Tùng M-TP"));
-                Position[index].add(ListSongs.get(random).getIDMusic());
+                latestList.add(new MusicClass(imgID, ListSongs.get(random).getMusicName()));
+                Position[index].add(random);
             }
         }
 
@@ -172,11 +172,11 @@ public class HomeFragment extends Fragment {
         int random = 5;
         int n = random;
         for(int i = 0 ; i < n ; i++) {
-            random = new Random().nextInt(ListSongs.size() - 2) + 1;
+            random = new Random().nextInt(ListSongs.size() - 1);
             int imgID = getIDImg(random);
             if(imgID != 0) {
-                Suggest.add(new MusicClass(imgID, "Sơn Tùng M-TP"));
-                Position[index].add(ListSongs.get(random).getIDMusic());
+                Suggest.add(new MusicClass(imgID, ListSongs.get(random).getMusicName()));
+                Position[index].add(random);
             }
         }
     }
