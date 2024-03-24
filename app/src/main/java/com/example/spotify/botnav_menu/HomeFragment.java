@@ -106,7 +106,6 @@ public class HomeFragment extends Fragment {
         Position[1] = new ArrayList<>();
         Position[2] = new ArrayList<>();
 
-
         //khởi tạo danh sách list album vertical
         listMusicClassArrayList = new ArrayList<>();
         ListMusicAdapter listMusicAdapter;
@@ -123,9 +122,7 @@ public class HomeFragment extends Fragment {
         //List horizontal cho mỗi list nhạc
         CreateHorizontalList();
 
-
         listMusicAdapter = new ListMusicAdapter(listMusicClassArrayList, context, Position);
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         //LinearLayoutManager staggeredGridLayoutManager = new LinearLayoutManager(this ,LinearLayoutManager.HORIZONTAL, false);
@@ -153,7 +150,6 @@ public class HomeFragment extends Fragment {
         listMusicClassArrayList.add(new ListMusicClass("Album mới nhất", latestList));
         listMusicClassArrayList.add(new ListMusicClass("Bảng xếp hạng", Ranking));
     }
-
     private void AddLatestList(int index) {
         int random = 5;
         int n = random;
@@ -165,9 +161,7 @@ public class HomeFragment extends Fragment {
                 Position[index].add(random);
             }
         }
-
     }
-
     private void AddSuggest(int index) {
         int random = 5;
         int n = random;
@@ -180,7 +174,6 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-
     private int getIDImg(int position)
     {
         String ImageFileName = ListSongs.get(position).getImageMusic();
