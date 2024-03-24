@@ -24,13 +24,14 @@ import com.example.spotify.musichelper.MusicHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MusicActivity extends AppCompatActivity {
 
     //region Variable
     Button btnMP3,btnMP4;
     TextView txtTenBaiHat,txtSongToTal,txtTimeSong;
-    ImageButton btnPlay, btnPrevious, btnLast, btnPause;
+    ImageButton btnPlay, btnPrevious, btnLast, btnPause, btnRandom;
     ImageView disc;
     SeekBar seekBar, Volume_seekbar;
     ArrayList<MusicAdapter> ListSongs;
@@ -146,6 +147,24 @@ public class MusicActivity extends AppCompatActivity {
             SetTotalTime();
             UpdateTimeSong();
         });
+        btnRandom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random random = new Random();
+                position = random.nextInt(ListSongs.size());
+
+                // Nếu đang phát nhạc, dừng lại trước khi chuyển đến bài hát mới
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                CreateMediaPlayer();
+                mediaPlayer.start();
+                btnPlay.setImageResource(R.drawable.icmusic_pause);
+                disc.startAnimation(animation);
+                SetTotalTime();
+                UpdateTimeSong();
+            }
+        });
     }
 
     private void CreateMediaPlayer() {
@@ -183,6 +202,7 @@ public class MusicActivity extends AppCompatActivity {
         txtSongToTal = findViewById(R.id.Music_SongToTal);
         txtTimeSong = findViewById(R.id.Music_TimeSong);
         btnPause = findViewById(R.id.Music_btnPause);
+        btnRandom = findViewById(R.id.Music_btnRandom);
         seekBar = findViewById(R.id.Music_btnSeekBar);
         Volume_seekbar = findViewById(R.id.Volume_btnSeekBar);
         disc = findViewById(R.id.Music_disc);

@@ -4,16 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:background="@drawable/background_3">
+
+
+    <ImageButton
+        android:id="@+id/Music_btnPlay"
+        android:layout_width="52dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="172dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.289"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icmusic_play" />
 
     <ImageButton
         android:id="@+id/Music_btnPrevious"
         android:layout_width="52dp"
         android:layout_height="54dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="172dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.256"
+        app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/previous" />
@@ -22,38 +36,37 @@
         android:id="@+id/Music_btnLast"
         android:layout_width="52dp"
         android:layout_height="54dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="172dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.782"
+        app:layout_constraintHorizontal_bias="0.637"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/last" />
 
     <ImageButton
-        android:id="@+id/Music_btnPlay"
-        android:layout_width="52dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="168dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.423"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icmusic_play" />
-
-    <ImageButton
         android:id="@+id/Music_btnPause"
         android:layout_width="52dp"
         android:layout_height="51dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="172dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.618"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/stop" />
 
+    <ImageButton
+        android:id="@+id/Music_btnRandom"
+        android:layout_width="52dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="172dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.816"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/random" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="200dp"
@@ -61,10 +74,10 @@
         app:cardCornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.424"
+        app:layout_constraintVertical_bias="0.374"
         tools:ignore="MissingConstraints">
 
         <ImageView
@@ -73,6 +86,7 @@
             android:layout_height="match_parent"
 
             app:srcCompat="@drawable/pt_1" />
+
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -82,7 +96,9 @@
         android:layout_marginTop="112dp"
         android:gravity="center"
         android:text="Song"
+        android:textColor="@color/white"
         android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,6 +112,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
+        android:progressTint="#FF0000"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -105,7 +122,9 @@
         android:layout_marginTop="516dp"
         android:gravity="center"
         android:text="0:00"
+        android:textColor="@color/white"
         android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +137,9 @@
         android:layout_marginTop="516dp"
         android:gravity="center"
         android:text="0:00"
+        android:textColor="@color/white"
         android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
@@ -128,11 +149,14 @@
         android:id="@+id/Volume_btnSeekBar"
         android:layout_width="104dp"
         android:layout_height="13dp"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="388dp"
         android:rotation="270"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:progressDrawable="@drawable/volume_control"
         tools:ignore="MissingConstraints" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
