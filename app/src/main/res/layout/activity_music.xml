@@ -94,13 +94,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.374"
+        app:cardElevation="20dp"
         tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/Music_disc"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:srcCompat="@drawable/pt_1" />
 
     </androidx.cardview.widget.CardView>
@@ -123,7 +123,7 @@
     <SeekBar
         android:id="@+id/Music_btnSeekBar"
         android:layout_width="364dp"
-        android:layout_height="0dp"
+        android:layout_height="10dp"
         android:layout_marginTop="612dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
