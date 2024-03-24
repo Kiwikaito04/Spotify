@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".botnav_menu.PremiumFragment">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,44 +16,43 @@
             android:id="@+id/ivHinhNen"
             android:layout_width="wrap_content"
             android:layout_height="230dp"
-            android:src="@drawable/premium_background" />
+            android:src="@drawable/pre_hinhnen" />
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="203dp"
-            android:layout_height="67dp"
-            tools:layout_editor_absoluteX="-5dp"
-            tools:layout_editor_absoluteY="1dp">
+            android:layout_width="wrap_content"
+            android:layout_height="67dp">
 
             <ImageView
                 android:id="@+id/ivHinh"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/spotify" />
 
             <TextView
                 android:id="@+id/spotify"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Premium"
+                android:text="@string/Pre"
                 android:textColor="@color/white"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
 
 
+
         <TextView
             android:id="@+id/hi"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Spotify Premium"
-            android:layout_marginLeft="10dp"
+            android:text="@string/SP"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="210dp"
             android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
 
@@ -61,53 +60,54 @@
             android:id="@+id/hii"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nhận 2 tháng dùng gói Premium với giá 59,000đ"
-            android:layout_marginLeft="10dp"
+            android:text="@string/Reward"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="222dp"
             android:textColor="@color/white"
-            android:textSize="35dp"
+            android:textSize="35sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/hiii"
-            android:layout_width="390dp"
+            android:id="@+id/UsePremium"
+            android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:text="DÙNG PREMIUM"
-            android:layout_marginLeft="12dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/USEPRE"
             android:layout_marginTop="320dp"
             android:background="@drawable/lomwhite"
             android:textColor="@color/black"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            android:textSize="25sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/hiiii"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sau đó chỉ 59,000đ/tháng. Có áp dụng các điều khoản và điều kiện. Ưu đãi không dành cho người đã dùng thử gói Premium"
-            android:layout_marginLeft="10dp"
+            android:text="@string/AfterPre"
             android:layout_marginTop="387dp"
             android:textColor="@color/gray"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
 
         <LinearLayout
             android:id="@+id/goii"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="340dp"
-            android:layout_marginLeft="6dp"
             android:layout_marginTop="428dp"
             android:background="@drawable/lom"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/chu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"
-                android:text="Lý do nên dùng gói Premium"
+                android:layout_marginStart="15dp"
+                android:text="@string/LyDo"
                 android:textColor="@color/white"
-                android:textSize="23dp"
+                android:textSize="23sp"
                 android:textStyle="bold" />
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -117,17 +117,17 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:src="@drawable/tickgreen"/>
                 <TextView
                     android:id="@+id/chuu"
                     android:layout_width="300dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="22dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="Nghe ngoại tuyến mà không cần Wi-Fi hay dữ liệu di động"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/Num1"
                     android:textColor="@color/white"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -138,17 +138,17 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:src="@drawable/tickgreen"/>
                 <TextView
                     android:id="@+id/chuu1"
                     android:layout_width="300dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="Phát nhạc theo thứ tự bất kỳ"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/Num2"
                     android:textColor="@color/white"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -159,17 +159,17 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:src="@drawable/tickgreen"/>
                 <TextView
                     android:id="@+id/chuuu"
                     android:layout_width="300dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="22dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="Nghe nhạc không bị quảng cáo làm gián đoạn"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/Num3"
                     android:textColor="@color/white"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -180,58 +180,58 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:src="@drawable/tickgreen"/>
                 <TextView
                     android:id="@+id/chuuuu"
                     android:layout_width="300dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="Chất lượng âm thanh vượt trôi"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/Num4"
                     android:textColor="@color/white"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>
 
 
         <LinearLayout
             android:id="@+id/goifree"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:layout_marginLeft="6dp"
             android:layout_marginTop="790dp"
             android:background="@drawable/lom"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/chu2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="40dp"
-                android:text="Spotify Free"
+                android:layout_marginStart="40dp"
+                android:text="@string/Free"
                 android:textColor="@color/gray"
-                android:textSize="23dp" />
+                android:textSize="23sp" />
             <TextView
                 android:id="@+id/chu3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="270dp"
+                android:layout_marginStart="270dp"
                 android:layout_marginTop="-25dp"
-                android:text="GÓI HIỆN TẠI"
+                android:text="@string/Present"
                 android:textColor="@color/gray"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chọn gói Premium của bạn"
-            android:layout_marginLeft="6dp"
+            android:text="@string/Pick"
             android:layout_marginTop="920dp"
             android:orientation="vertical"
-            android:textSize="21dp"
+            android:textSize="21sp"
             android:textColor="@color/white"
             android:textStyle="bold"/>
 
@@ -241,6 +241,8 @@
             android:id="@+id/goi1"
             android:layout_width="match_parent"
             android:layout_height="320dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="970dp"
             android:background="@drawable/lomblue"
             android:orientation="vertical">
@@ -249,28 +251,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="40dp"
-                android:text="Mini"
-                android:textColor="@color/graydam"
-                android:textSize="23dp" />
+                android:layout_marginStart="40dp"
+                android:text="@string/Mini"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
             <TextView
                 android:id="@+id/chu5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="250dp"
+                android:layout_marginStart="250dp"
                 android:layout_marginTop="-40dp"
-                android:text="Từ 2,300đ"
+                android:text="@string/DaCap"
                 android:textColor="@color/white"
-                android:textSize="26dp" />
+                android:textSize="26sp" />
             <TextView
                 android:id="@+id/chu6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="270dp"
+                android:layout_marginStart="270dp"
                 android:layout_marginTop="-1dp"
-                android:text="TRONG 1 NGÀY"
+                android:text="@string/OneDay"
                 android:textColor="@color/white"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
             <TextView
                 android:id="@+id/chu7"
                 android:layout_width="333dp"
@@ -279,19 +281,21 @@
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:lineSpacingExtra="4dp"
-                android:text="Gói 1 ngày và gói một tuần • Nhạc không quảng cáo trên thiết bị di động • Tải 30 bài hát trên 1 thiết bị di động • Gói chỉ dành cho thiết bị di động"
+                android:text="@string/Text1Goi1"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
             <Button
-                android:id="@+id/button"
-                android:layout_width="160dp"
+                android:id="@+id/GoiMini"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="XEM GÓI"
+                android:layout_marginStart="120dp"
+                android:layout_marginEnd="120dp"
+                android:text="@string/XemGoi1"
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center"
                 android:background="@drawable/lomwhite"
-                android:textSize="23dp"/>
+                android:textSize="23sp"/>
 
             <TextView
                 android:id="@+id/chu8"
@@ -300,9 +304,9 @@
                 android:layout_marginTop="5dp"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:text="Áp dụng điều khoản và điều kiện."
+                android:text="@string/Text2Goi1"
                 android:textColor="@color/white"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
 
@@ -311,6 +315,8 @@
             android:layout_width="match_parent"
             android:layout_height="280dp"
             android:layout_marginTop="1330dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/lomgreen"
             android:orientation="vertical">
             <TextView
@@ -318,28 +324,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="40dp"
-                android:text="Premium Individual"
+                android:layout_marginStart="40dp"
+                android:text="@string/PreInd"
                 android:textColor="@color/white"
-                android:textSize="23dp" />
+                android:textSize="23sp" />
             <TextView
                 android:id="@+id/chu10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="270dp"
+                android:layout_marginStart="270dp"
                 android:layout_marginTop="-40dp"
-                android:text="59,000đ"
+                android:text="@string/GiaPreInd"
                 android:textColor="@color/white"
-                android:textSize="26dp" />
+                android:textSize="26sp" />
             <TextView
                 android:id="@+id/chu11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="260dp"
+                android:layout_marginStart="260dp"
                 android:layout_marginTop="-1dp"
-                android:text="TRONG 2 THÁNG"
+                android:text="@string/TwoMonth"
                 android:textColor="@color/white"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
             <TextView
                 android:id="@+id/chu12"
                 android:layout_width="333dp"
@@ -348,19 +354,21 @@
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:lineSpacingExtra="4dp"
-                android:text="1 tài khoản Premium"
+                android:text="@string/Text1Goi2"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
             <Button
-                android:id="@+id/button1"
-                android:layout_width="280dp"
+                android:id="@+id/GoiPremiumIndividual"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="DÙNG GÓI PREMIUM"
+                android:text="@string/UsePresent"
                 android:layout_marginTop="16dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
                 android:layout_gravity="center"
                 android:background="@drawable/lomwhite"
-                android:textSize="22dp"/>
+                android:textSize="22sp"/>
 
             <TextView
                 android:id="@+id/chu13"
@@ -369,9 +377,9 @@
                 android:layout_marginTop="5dp"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:text="Sau đó chỉ 59,000đ/tháng. Có áp dụng các điều khoản và điều kiện. Ưu đãi không dành cho người đã dùng thử gói Premium"
+                android:text="@string/Text2Goi2"
                 android:textColor="@color/white"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
 
@@ -382,34 +390,36 @@
             android:layout_height="300dp"
             android:layout_marginTop="1654dp"
             android:background="@drawable/lomorange"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/chu14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="40dp"
-                android:text="Premium Student"
+                android:layout_marginStart="40dp"
+                android:text="@string/PreStu"
                 android:textColor="@color/white"
-                android:textSize="23dp" />
+                android:textSize="23sp" />
             <TextView
                 android:id="@+id/chu15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="270dp"
+                android:layout_marginStart="270dp"
                 android:layout_marginTop="-40dp"
-                android:text="29,500đ"
+                android:text="@string/GiaPreStu"
                 android:textColor="@color/white"
-                android:textSize="26dp" />
+                android:textSize="26sp" />
             <TextView
                 android:id="@+id/chu16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="260dp"
+                android:layout_marginStart="260dp"
                 android:layout_marginTop="-1dp"
-                android:text="TRONG 2 THÁNG"
+                android:text="@string/TwoMonth"
                 android:textColor="@color/white"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
             <TextView
                 android:id="@+id/chu17"
                 android:layout_width="333dp"
@@ -418,19 +428,21 @@
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:lineSpacingExtra="4dp"
-                android:text="1 tài khoản Premium"
+                android:text="@string/Text1Goi2"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
             <Button
-                android:id="@+id/button2"
-                android:layout_width="245dp"
+                android:id="@+id/GoiPremiumStudent"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="DÙNG PREMIUM"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
+                android:text="@string/USEPRE"
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center"
                 android:background="@drawable/lomwhite"
-                android:textSize="22dp"/>
+                android:textSize="22sp"/>
 
             <TextView
                 android:id="@+id/chu18"
@@ -439,9 +451,9 @@
                 android:layout_marginTop="5dp"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:text="Sau đó áp dụng các điều khoản và điều kiện. Gói chỉ dành cho sinh viên tại các trường cao đẳng và đại học chưa dùng thử gói Premium. Sau thời gian dùng thử, mức phí sẽ là 29,500đ/tháng."
+                android:text="@string/Text2Goi3"
                 android:textColor="@color/white"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
         </LinearLayout>
     </FrameLayout>
 

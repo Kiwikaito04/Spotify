@@ -12,4 +12,9 @@
     <color name="app_main_bg">#FFFFFF</color>
     <color name="background_blur">#30000000</color>
     <color name="app_main_bg_op">#000000</color>
+
+    <color name="blacknhat">#F2171616</color>
+    <color name="light_green">#83BA44</color>
+    <color name="pink">#DF608B</color>
+    <color name="purple">#B955CA</color>
 </resources>

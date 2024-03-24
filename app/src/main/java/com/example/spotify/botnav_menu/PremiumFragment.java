@@ -1,5 +1,7 @@
 package com.example.spotify.botnav_menu;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +9,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.spotify.R;
+import com.example.spotify.botnav_menu.premiumhelper.GoiMiniActivity;
+import com.example.spotify.botnav_menu.premiumhelper.GoiPreIndiActivity;
+import com.example.spotify.botnav_menu.premiumhelper.GoiPreStuActivity;
+import com.example.spotify.botnav_menu.premiumhelper.UserPreActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,10 +64,45 @@ public class PremiumFragment extends Fragment {
         }
     }
 
+    Context context ;
+    Button buttonMini ;
+    Button buttonPreIndi;
+    Button buttonPreStu ;
+    Button buttonUsePre ;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_premium, container, false);
+        context = getContext();
+        View view = inflater.inflate(R.layout.fragment_premium, container, false);
+        buttonMini = view.findViewById(R.id.GoiMini);
+        buttonPreIndi = view.findViewById(R.id.GoiPremiumIndividual);
+        buttonPreStu = view.findViewById(R.id.GoiPremiumStudent);
+        buttonUsePre = view.findViewById(R.id.UsePremium);
+        addBtnAction();
+        return view;
     }
+
+    private void addBtnAction() {
+        buttonMini.setOnClickListener(v -> {
+            Intent intent = new Intent(context, GoiMiniActivity.class);
+            startActivity(intent);
+        });
+        buttonPreIndi.setOnClickListener(v -> {
+            Intent intent = new Intent(context, GoiPreIndiActivity.class);
+            startActivity(intent);
+        });
+
+        buttonPreStu.setOnClickListener(v -> {
+            Intent intent = new Intent(context, GoiPreStuActivity.class);
+            startActivity(intent);
+        });
+
+        buttonUsePre.setOnClickListener(v -> {
+            Intent intent = new Intent(context, UserPreActivity.class);
+            startActivity(intent);
+        });
+    }
+
 }
