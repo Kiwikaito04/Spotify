@@ -1,4 +1,0 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="50dp" /> <!-- Điều chỉnh bán kính để làm lõm góc -->
-    <solid android:color="@color/white" /> <!-- Màu nền của button và TextView -->
-</shape>
