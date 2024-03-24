@@ -119,7 +119,7 @@ public class SearchFragment extends Fragment {
         ArrayList<MusicAdapter> songs = MusicHelper.getListSongs();
         ArrayList<String> songNames = new ArrayList<>();
         ArrayList<String> Img_music = new ArrayList<>();
-        for (int i = 1 ; i < songs.size() ; i++) {
+        for (int i = 0 ; i < songs.size() ; i++) {
             songNames.add(songs.get(i).getMusicName());
         }
         arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, songNames);
