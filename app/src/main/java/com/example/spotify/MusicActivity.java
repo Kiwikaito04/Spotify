@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,6 +16,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +46,7 @@ public class MusicActivity extends AppCompatActivity {
     AudioManager audioManager;
     Animation animation;
     MusicHelper musicHelper;
+    Toolbar toolbarreturn;
     //endregion
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,7 +212,29 @@ public class MusicActivity extends AppCompatActivity {
         seekBar = findViewById(R.id.Music_btnSeekBar);
         Volume_seekbar = findViewById(R.id.Volume_btnSeekBar);
         disc = findViewById(R.id.Music_disc);
+        
+        //return home
+        toolbarreturn=findViewById(R.id.ToolbarReturn);
+        setSupportActionBar(toolbarreturn);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        mediaPlayer.stop();
+        return super.onOptionsItemSelected(item);
+    }
+
+    //return o phia duoi
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mediaPlayer.stop();
+        finish();
+    }
+
     private void SetTotalTime(){
         //getduration() tra tong tgian bai hat= m/s=> dinh dang phut/giay =simpledataformat
         SimpleDateFormat fm = new SimpleDateFormat("mm:ss");
