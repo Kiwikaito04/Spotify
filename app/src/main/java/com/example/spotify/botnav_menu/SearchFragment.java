@@ -77,34 +77,29 @@ public class SearchFragment extends Fragment {
 
     Context context;
     ArrayAdapter<String> arrayAdapter;
+    ArrayList<MusicAdapter> songs;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         lv = view.findViewById(R.id.MusicList);
-        search=view.findViewById(R.id.searchFragment);
+        search = view.findViewById(R.id.searchFragment);
         context = getContext();
         LoadDataFromDatabase();
         EventSearch();
-
-
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Lấy tên bài hát tương ứng
-                String selectedSong = String.valueOf(position);
-
-                // Xử lý khi người dùng nhấn vào một mục trong danh sách
-                goToSelectedSong(selectedSong);
+                String str = parent.getItemAtPosition(position).toString();
+                String[] arrOfst = str.split("\\.",0);
+                goToSelectedSong(arrOfst[0]);
             }
         });
 
         return  view;
 
     }
-
     private void EventSearch() {
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -125,14 +120,13 @@ public class SearchFragment extends Fragment {
     }
 
     private void LoadDataFromDatabase() {
-        ArrayList<MusicAdapter> songs = MusicHelper.getListSongs();
+        songs = MusicHelper.getListSongs();
         ArrayList<String> songNames = new ArrayList<>();
-        ArrayList<String> Img_music = new ArrayList<>();
-        for (int i = 0 ; i < songs.size() ; i++) {
-            songNames.add(songs.get(i).getMusicName());
-        }
-        arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, songNames);
 
+        for (int i = 0 ; i < songs.size() ; i++) {
+            songNames.add(String.format("%s. %s", i,songs.get(i).getMusicName()));
+        }
+        arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, songNames);
         lv.setAdapter(arrayAdapter);
 
     }
