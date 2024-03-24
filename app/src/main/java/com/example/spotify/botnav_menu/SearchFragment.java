@@ -96,7 +96,6 @@ public class SearchFragment extends Fragment {
                 goToSelectedSong(arrOfst[0]);
             }
         });
-
         return  view;
 
     }
