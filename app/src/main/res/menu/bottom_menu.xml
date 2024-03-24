@@ -15,6 +15,6 @@
     <item
         android:title="Premium"
         android:id="@+id/botNav_Premium"
-        android:icon="@drawable/spotify"/>
+        android:icon="@drawable/icon"/>
 
 </menu>
