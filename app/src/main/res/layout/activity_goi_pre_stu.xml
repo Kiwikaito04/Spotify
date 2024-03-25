@@ -47,7 +47,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="7dp"
-            android:src="@drawable/spotify"
+            android:src="@drawable/iconapp"
             android:layout_marginStart="5dp"/>
         <TextView
             android:id="@+id/text_spotify"
